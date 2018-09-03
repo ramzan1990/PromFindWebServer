@@ -1,0 +1,120 @@
+FROM nvidia/cuda:9.0-base-ubuntu16.04
+
+LABEL maintainer="Craig Citro <craigcitro@google.com>"
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
+        cuda-command-line-tools-9-0 \
+        cuda-cublas-dev-9-0 \
+        cuda-cudart-dev-9-0 \
+        cuda-cufft-dev-9-0 \
+        cuda-curand-dev-9-0 \
+        cuda-cusolver-dev-9-0 \
+        cuda-cusparse-dev-9-0 \
+        curl \
+        git \
+        libcudnn7=7.0.4.31-1+cuda9.0 \
+        libcudnn7-dev=7.0.4.31-1+cuda9.0 \
+        libnccl2=2.2.13-1+cuda9.0 \
+        libnccl-dev=2.2.13-1+cuda9.0 \
+        libcurl3-dev \
+        libfreetype6-dev \
+        libhdf5-serial-dev \
+        libpng12-dev \
+        libzmq3-dev \
+        pkg-config \
+        python-dev \
+        rsync \
+        software-properties-common \
+        unzip \
+        zip \
+        zlib1g-dev \
+        wget \
+        python-pip python-dev python-virtualenv \
+        && \
+    rm -rf /var/lib/apt/lists/* && \
+    find /usr/local/cuda-9.0/lib64/ -type f -name 'lib*_static.a' -not -name 'libcudart_static.a' -delete && \
+    rm /usr/lib/x86_64-linux-gnu/libcudnn_static_v7.a
+
+RUN pip install setuptools
+RUN pip install ez_setup
+RUN pip install tensorflow-gpu==1.5
+
+# Configure the build for our CUDA configuration.
+ENV CI_BUILD_PYTHON python
+ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+ENV TF_NEED_CUDA 1
+ENV TF_CUDA_COMPUTE_CAPABILITIES=3.5,5.2,6.0,6.1,7.0
+ENV TF_CUDA_VERSION=9.0
+ENV TF_CUDNN_VERSION=7
+
+
+WORKDIR /var/www
+ENV PATH="/usr/local/cuda/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
+
+ARG DEBIAN_FRONTEND=newt
+
+RUN apt-get -y update && apt-get install -y \
+apache2 \
+php7.0 \
+libapache2-mod-php7.0 \
+php7.0-bcmath \
+php7.0-gd \
+php7.0-json \
+php7.0-sqlite \
+php7.0-mysql \
+php7.0-curl \
+php7.0-xml \
+php7.0-mbstring \
+php7.0-zip \
+mcrypt \
+nano
+
+RUN apt-get install locales
+RUN locale-gen fr_FR.UTF-8
+RUN locale-gen en_US.UTF-8
+RUN locale-gen de_DE.UTF-8
+#ENV LANG fr_FR.UTF-8
+#ENV LANGUAGE fr_FR:fr
+#ENV LC_ALL fr_FR.UTF-8 
+
+# config PHP
+# we want a dev server which shows PHP errors
+RUN sed -i -e 's/^error_reporting\s*=.*/error_reporting = E_ALL/' /etc/php/7.0/apache2/php.ini
+RUN sed -i -e 's/^display_errors\s*=.*/display_errors = On/' /etc/php/7.0/apache2/php.ini
+RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' /etc/php/7.0/apache2/php.ini
+
+# to be able to use "nano" with shell on "docker exec -it [CONTAINER ID] bash"
+ENV TERM xterm
+
+# Apache conf
+# allow .htaccess with RewriteEngine
+RUN a2enmod rewrite
+# to see live logs we do : docker logs -f [CONTAINER ID]
+# without the following line we get "AH00558: apache2: Could not reliably determine the server's fully qualified domain name"
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# autorise .htaccess files
+RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+# for production :
+# RUN echo "ServerTokens Prod\n" >> /etc/apache2/apache2.conf
+# RUN echo "ServerSignature Off\n" >> /etc/apache2/apache2.conf
+
+RUN git clone https://github.com/ramzan1990/PromIDWebServer temp1
+RUN cp -a temp1/. /var/www/html/
+RUN rm -rf temp1
+
+RUN chown -R www-data:www-data /var/www
+RUN chmod 755 -R /var/www
+RUN chgrp -R www-data /var/www
+RUN find /var/www -type d -exec chmod 775 {} +
+RUN find /var/www -type f -exec chmod 664 {} +
+
+RUN chmod 755 /var/www/html/PromID/main.sh
+RUN chmod 777 /var/www/html/PromID/files/
+
+EXPOSE 80
+
+# start Apache2 on image start
+CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
+

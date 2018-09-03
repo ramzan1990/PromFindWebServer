@@ -1,0 +1,9 @@
+version: '2.3'
+services:
+    webapp:
+        build:
+            context: ./
+            dockerfile: app.docker
+        runtime: nvidia
+        ports:
+            - "8080:80"

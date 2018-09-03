@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PromID</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+<style>
+code{background:#F8F8FF; color: black; padding:6px}
+</style> 
+</head>
+<body>
+    <div class="container">
+        <div class="top" >
+        </div>
+        <div class="navdiv" >
+
+        </div>
+
+        <div  id="form1">        	
+            <!--  <a href="information.html#requirement"> Input Sequence Requirements </a>    &nbsp;&nbsp;&nbsp;    <a href="information.html#format"> Input File Format </a>    &nbsp;&nbsp;&nbsp;     <a href="information.html#sample"> Sample Input </a> 
+            <br />
+            -->            
+            <form id="formv" class="forHistory"  enctype="multipart/form-data">
+
+                <br />
+                    <div class="text1-wrap" >
+                        <p>Upload an input file:</p>  
+                        <input id="inputFile" type="file" name="file" >
+                    </div>  
+                    <div class="text1-wrap">
+                        <p>Or enter/paste your sequence:</p>  
+                        <textarea name="sequence" type="text" class="form-control tInput" rows="3" id="sequence" ></textarea>
+                    </div>       
+                    <div class="text1-wrap">
+                        <button type="submit" id="submitButton" data-loading-text="Loading..." class="btn btn-success fl1">Submit</button>
+                        <br /> <br />
+
+
+                    </div>
+<!-- 
+<p>Click <a href="https://www.ncbi.nlm.nih.gov/pubmed/29069344" target="_blank">here</a> to find the original paper.<br>
+    Click <a href="" onclick="copier()">here</a>  to copy the LaTeX reference.
+</p>
+<br>
+-->
+
+
+
+       <p  >This tool is for academic purposes and research use only. Any commercial use is subject for authorization from King Abdullah University of Science and Technology. Please contact us at <a href="mailto:ip@kaust.edu.sa">ip@kaust.edu.sa</a>.
+
+   </p> 
+            </div>
+            <div  id="rm1">Please wait for about 30s for one sequence (depends on the sequence length because of PSI-BLAST) and do not press refresh. For more than 100 sequences, feel free to contact the developer directly to run the job. </div>
+            <br /><br />
+            <button type="button" id="xClose" class="btn btn-success">
+   Close
+ </button>
+        </div>
+           <br />
+
+<textarea id="lref" style="position: absolute;top: -9999px;left: -9999px;">
+bibtex item 
+</textarea>
+  
+        </div>
+   
+
+        <footer>
+
+        </footer>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/header.js"></script>
+        <script type="text/javascript" src="js/navbar.js"></script>
+        <script type="text/javascript" src="js/footer.js"></script>
+        <script type="text/javascript">
+            $("#rm1").hide();
+            $("#xClose").hide();
+            $('#indexNav').attr("class", "active");
+             $('#xClose').on('click', function (e) {
+                $("#rm1").hide();
+                $("#xClose").hide();
+                $("#form1").show();
+                $('#rm1').html("Please wait for about 30s for one sequence (depends on the sequence length) and do not press refresh. For very long input, feel free to contact the developer directly to run the job. "); 
+  });
+            $("#formv").submit(function(e){                
+                e.preventDefault();
+                validateForm(this);
+            })
+            function validateForm(form) {
+                if($("#inputFile").val() == ''){                	
+                    seq = $("#sequence").val().toUpperCase();
+                    $('#sequence').val(seq);
+                }
+                $("#form1").hide();
+                $("#rm1").show();
+                $.ajax({ 
+    url: 'result.php',
+    data: new FormData(form),
+    cache: false, 
+    contentType: false,
+    processData: false,
+    method: 'POST'
+}).done(function(htmlData) {
+                $('#rm1').html(htmlData);  
+                $("#xClose").show();                              
+            });
+
+                return false;
+            }
+            function copier(){
+                document.getElementById('lref').select();
+                document.execCommand('copy');
+                alert("Copied to clipboard.");
+            }
+        </script>
+    </div>
+</body>
+</html>
