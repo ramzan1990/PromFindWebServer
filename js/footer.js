@@ -1,1 +1,1 @@
-$('footer').append('<div class="row"><div class="col-lg-12"><p>© 2017 All Rights Reserved. King Abdullah University of Science and Technology</p></div></div>');
+$('footer').append('<div class="row"><div class="col-lg-12"><p>© 2018 All Rights Reserved. King Abdullah University of Science and Technology</p></div></div>');
