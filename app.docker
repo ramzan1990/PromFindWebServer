@@ -101,7 +101,7 @@ RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/Allo
 # RUN echo "ServerSignature Off\n" >> /etc/apache2/apache2.conf
 
 RUN git clone https://github.com/ramzan1990/PromIDWebServer temp1
-RUN cp -a temp1/. /var/www/html/
+RUN cp -a temp1/. /var/www/html/PromID/
 RUN rm -rf temp1
 
 RUN chown -R www-data:www-data /var/www
@@ -110,8 +110,8 @@ RUN chgrp -R www-data /var/www
 RUN find /var/www -type d -exec chmod 775 {} +
 RUN find /var/www -type f -exec chmod 664 {} +
 
-RUN chmod 755 /var/www/html/PromID/main.sh
-RUN chmod 777 /var/www/html/PromID/files/
+RUN chmod 755 /var/www/html/PromID/PromID/main.sh
+RUN chmod 777 /var/www/html/PromID/PromID/files/
 
 EXPOSE 80
 
