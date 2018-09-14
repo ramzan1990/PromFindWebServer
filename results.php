@@ -16,7 +16,7 @@
         </div>
 
         <div  id="centered">
-        <div  id="rm1">Please wait and do not press refresh. For large input, feel free to contact the developer directly to run the job!. </div>
+        <div  id="rm1">Please wait and do not press refresh. For large input, feel free to contact the developer directly to run the job!</div>
         </div>
   <footer>    
   </footer>
@@ -24,7 +24,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <script type="text/javascript" src="js/header.js"></script>
         <script type="text/javascript" src="js/navbar.js"></script>
-        <script type="text/javascript" src="js/footer.js"></script>
+        <script type="text/javascript" src="js/footer.js"></script> 
         <script type="text/javascript">
             $('#indexNav').attr("class", "active");
         </script>

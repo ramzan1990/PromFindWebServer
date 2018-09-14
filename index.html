@@ -31,7 +31,7 @@ code{background:#F8F8FF; color: black; padding:6px}
                         <input id="inputFile" type="file" name="file" >
                     </div>  
                     <div class="text1-wrap">
-                        <p>Or enter/paste your sequence:</p>  
+                        <p>Or enter/paste your sequences in Fasta format:</p>  
                         <textarea name="sequence" type="text" class="form-control tInput" rows="3" id="sequence" ></textarea>
                     </div>       
                     <div class="text1-wrap">
@@ -53,7 +53,7 @@ code{background:#F8F8FF; color: black; padding:6px}
 
    </p> 
             </div>
-            <div  id="rm1">Please wait for about 30s for one sequence (depends on the sequence length because of PSI-BLAST) and do not press refresh. For more than 100 sequences, feel free to contact the developer directly to run the job. </div>
+            <div  id="rm1">Please wait and do not press refresh. For large input, feel free to contact the developer directly to run the job. </div>
             <br /><br />
             <button type="button" id="xClose" class="btn btn-success">
    Close
@@ -84,17 +84,13 @@ bibtex item
                 $("#rm1").hide();
                 $("#xClose").hide();
                 $("#form1").show();
-                $('#rm1').html("Please wait for about 30s for one sequence (depends on the sequence length) and do not press refresh. For very long input, feel free to contact the developer directly to run the job. "); 
+                $('#rm1').html("Please wait and do not press refresh. For large input, feel free to contact the developer directly to run the job.  "); 
   });
             $("#formv").submit(function(e){                
                 e.preventDefault();
                 validateForm(this);
             })
             function validateForm(form) {
-                if($("#inputFile").val() == ''){                	
-                    seq = $("#sequence").val().toUpperCase();
-                    $('#sequence').val(seq);
-                }
                 $("#form1").hide();
                 $("#rm1").show();
                 $.ajax({ 
