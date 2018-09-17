@@ -202,6 +202,124 @@ meta_graphs {
         allows_uninitialized_input: true
       }
       op {
+        name: "AvgPool"
+        input_arg {
+          name: "value"
+          type_attr: "T"
+        }
+        output_arg {
+          name: "output"
+          type_attr: "T"
+        }
+        attr {
+          name: "ksize"
+          type: "list(int)"
+          has_minimum: true
+          minimum: 4
+        }
+        attr {
+          name: "strides"
+          type: "list(int)"
+          has_minimum: true
+          minimum: 4
+        }
+        attr {
+          name: "padding"
+          type: "string"
+          allowed_values {
+            list {
+              s: "SAME"
+              s: "VALID"
+            }
+          }
+        }
+        attr {
+          name: "data_format"
+          type: "string"
+          default_value {
+            s: "NHWC"
+          }
+          allowed_values {
+            list {
+              s: "NHWC"
+              s: "NCHW"
+            }
+          }
+        }
+        attr {
+          name: "T"
+          type: "type"
+          allowed_values {
+            list {
+              type: DT_HALF
+              type: DT_FLOAT
+              type: DT_DOUBLE
+            }
+          }
+        }
+      }
+      op {
+        name: "AvgPoolGrad"
+        input_arg {
+          name: "orig_input_shape"
+          type: DT_INT32
+        }
+        input_arg {
+          name: "grad"
+          type_attr: "T"
+        }
+        output_arg {
+          name: "output"
+          type_attr: "T"
+        }
+        attr {
+          name: "ksize"
+          type: "list(int)"
+          has_minimum: true
+          minimum: 4
+        }
+        attr {
+          name: "strides"
+          type: "list(int)"
+          has_minimum: true
+          minimum: 4
+        }
+        attr {
+          name: "padding"
+          type: "string"
+          allowed_values {
+            list {
+              s: "SAME"
+              s: "VALID"
+            }
+          }
+        }
+        attr {
+          name: "data_format"
+          type: "string"
+          default_value {
+            s: "NHWC"
+          }
+          allowed_values {
+            list {
+              s: "NHWC"
+              s: "NCHW"
+            }
+          }
+        }
+        attr {
+          name: "T"
+          type: "type"
+          allowed_values {
+            list {
+              type: DT_HALF
+              type: DT_FLOAT
+              type: DT_DOUBLE
+            }
+          }
+        }
+      }
+      op {
         name: "BiasAdd"
         input_arg {
           name: "value"
@@ -2246,7 +2364,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 4
@@ -2269,7 +2387,7 @@ meta_graphs {
               size: -1
             }
             dim {
-              size: 251
+              size: 600
             }
             dim {
               size: 4
@@ -3244,7 +3362,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 4
@@ -3346,7 +3464,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -3404,7 +3522,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -3442,7 +3560,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -3508,7 +3626,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -3538,7 +3656,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -4427,7 +4545,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -4529,7 +4647,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -4587,7 +4705,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -4625,7 +4743,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -4691,7 +4809,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -4721,7 +4839,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -5610,7 +5728,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 4
@@ -5712,7 +5830,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -5770,7 +5888,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -5808,7 +5926,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -5874,7 +5992,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -5904,7 +6022,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -5970,7 +6088,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 1
@@ -6002,7 +6120,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 1
@@ -6068,7 +6186,1362 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "squeeze_dims"
+        value {
+          list {
+            i: 2
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Initializer/random_uniform/shape"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+              dim {
+                size: 3
+              }
+            }
+            tensor_content: "\001\000\000\000\004\000\000\000<\000\000\000"
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Initializer/random_uniform/min"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+            }
+            float_val: -0.306186228991
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Initializer/random_uniform/max"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+            }
+            float_val: 0.306186228991
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Initializer/random_uniform/RandomUniform"
+      op: "RandomUniform"
+      input: "fre_w_a1/Initializer/random_uniform/shape"
+      attr {
+        key: "T"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "seed"
+        value {
+          i: 0
+        }
+      }
+      attr {
+        key: "seed2"
+        value {
+          i: 0
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Initializer/random_uniform/sub"
+      op: "Sub"
+      input: "fre_w_a1/Initializer/random_uniform/max"
+      input: "fre_w_a1/Initializer/random_uniform/min"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Initializer/random_uniform/mul"
+      op: "Mul"
+      input: "fre_w_a1/Initializer/random_uniform/RandomUniform"
+      input: "fre_w_a1/Initializer/random_uniform/sub"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Initializer/random_uniform"
+      op: "Add"
+      input: "fre_w_a1/Initializer/random_uniform/mul"
+      input: "fre_w_a1/Initializer/random_uniform/min"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1"
+      op: "VariableV2"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "container"
+        value {
+          s: ""
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "shape"
+        value {
+          shape {
+            dim {
+              size: 1
+            }
+            dim {
+              size: 4
+            }
+            dim {
+              size: 60
+            }
+          }
+        }
+      }
+      attr {
+        key: "shared_name"
+        value {
+          s: ""
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Assign"
+      op: "Assign"
+      input: "fre_w_a1"
+      input: "fre_w_a1/Initializer/random_uniform"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/read"
+      op: "Identity"
+      input: "fre_w_a1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Initializer/random_uniform/shape"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            int_val: 60
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Initializer/random_uniform/min"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+            }
+            float_val: -0.223606795073
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Initializer/random_uniform/max"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+            }
+            float_val: 0.223606795073
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Initializer/random_uniform/RandomUniform"
+      op: "RandomUniform"
+      input: "fre_bias_a1/Initializer/random_uniform/shape"
+      attr {
+        key: "T"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "seed"
+        value {
+          i: 0
+        }
+      }
+      attr {
+        key: "seed2"
+        value {
+          i: 0
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Initializer/random_uniform/sub"
+      op: "Sub"
+      input: "fre_bias_a1/Initializer/random_uniform/max"
+      input: "fre_bias_a1/Initializer/random_uniform/min"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Initializer/random_uniform/mul"
+      op: "Mul"
+      input: "fre_bias_a1/Initializer/random_uniform/RandomUniform"
+      input: "fre_bias_a1/Initializer/random_uniform/sub"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Initializer/random_uniform"
+      op: "Add"
+      input: "fre_bias_a1/Initializer/random_uniform/mul"
+      input: "fre_bias_a1/Initializer/random_uniform/min"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1"
+      op: "VariableV2"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "container"
+        value {
+          s: ""
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "shape"
+        value {
+          shape {
+            dim {
+              size: 60
+            }
+          }
+        }
+      }
+      attr {
+        key: "shared_name"
+        value {
+          s: ""
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Assign"
+      op: "Assign"
+      input: "fre_bias_a1"
+      input: "fre_bias_a1/Initializer/random_uniform"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/read"
+      op: "Identity"
+      input: "fre_bias_a1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "a1/conv1d/ExpandDims/dim"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+            }
+            int_val: 1
+          }
+        }
+      }
+    }
+    node {
+      name: "a1/conv1d/ExpandDims"
+      op: "ExpandDims"
+      input: "input_prom"
+      input: "a1/conv1d/ExpandDims/dim"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tdim"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "a1/conv1d/ExpandDims_1/dim"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+            }
+            int_val: 0
+          }
+        }
+      }
+    }
+    node {
+      name: "a1/conv1d/ExpandDims_1"
+      op: "ExpandDims"
+      input: "fre_w_a1/read"
+      input: "a1/conv1d/ExpandDims_1/dim"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tdim"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "a1/conv1d/Conv2D"
+      op: "Conv2D"
+      input: "a1/conv1d/ExpandDims"
+      input: "a1/conv1d/ExpandDims_1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "data_format"
+        value {
+          s: "NHWC"
+        }
+      }
+      attr {
+        key: "padding"
+        value {
+          s: "SAME"
+        }
+      }
+      attr {
+        key: "strides"
+        value {
+          list {
+            i: 1
+            i: 1
+            i: 1
+            i: 1
+          }
+        }
+      }
+      attr {
+        key: "use_cudnn_on_gpu"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "a1/conv1d/Squeeze"
+      op: "Squeeze"
+      input: "a1/conv1d/Conv2D"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "squeeze_dims"
+        value {
+          list {
+            i: 1
+          }
+        }
+      }
+    }
+    node {
+      name: "a1/BiasAdd"
+      op: "BiasAdd"
+      input: "a1/conv1d/Squeeze"
+      input: "fre_bias_a1/read"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "data_format"
+        value {
+          s: "NHWC"
+        }
+      }
+    }
+    node {
+      name: "a1/mul/x"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+            }
+            float_val: 0.0010000000475
+          }
+        }
+      }
+    }
+    node {
+      name: "a1/mul"
+      op: "Mul"
+      input: "a1/mul/x"
+      input: "a1/BiasAdd"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "a1/Maximum"
+      op: "Maximum"
+      input: "a1/BiasAdd"
+      input: "a1/mul"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "average_pooling1d/ExpandDims/dim"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+            }
+            int_val: 2
+          }
+        }
+      }
+    }
+    node {
+      name: "average_pooling1d/ExpandDims"
+      op: "ExpandDims"
+      input: "a1/Maximum"
+      input: "average_pooling1d/ExpandDims/dim"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tdim"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "average_pooling1d/AvgPool"
+      op: "AvgPool"
+      input: "average_pooling1d/ExpandDims"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "data_format"
+        value {
+          s: "NHWC"
+        }
+      }
+      attr {
+        key: "ksize"
+        value {
+          list {
+            i: 1
+            i: 15
+            i: 1
+            i: 1
+          }
+        }
+      }
+      attr {
+        key: "padding"
+        value {
+          s: "SAME"
+        }
+      }
+      attr {
+        key: "strides"
+        value {
+          list {
+            i: 1
+            i: 1
+            i: 1
+            i: 1
+          }
+        }
+      }
+    }
+    node {
+      name: "average_pooling1d/Squeeze"
+      op: "Squeeze"
+      input: "average_pooling1d/AvgPool"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
               }
               dim {
                 size: 60
@@ -6121,11 +7594,12 @@ meta_graphs {
       op: "ConcatV2"
       input: "f2/Maximum"
       input: "max_pooling1d/Squeeze"
+      input: "average_pooling1d/Squeeze"
       input: "concat/axis"
       attr {
         key: "N"
         value {
-          i: 2
+          i: 3
         }
       }
       attr {
@@ -6149,10 +7623,10 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
-                size: 120
+                size: 180
               }
             }
           }
@@ -6616,7 +8090,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -6731,7 +8205,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -6797,7 +8271,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -6824,7 +8298,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -6916,7 +8390,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -6962,7 +8436,7 @@ meta_graphs {
                 size: 2
               }
             }
-            tensor_content: "\250u\000\000\002\000\000\000"
+            tensor_content: "\340\245\001\000\002\000\000\000"
           }
         }
       }
@@ -7000,7 +8474,7 @@ meta_graphs {
             dtype: DT_FLOAT
             tensor_shape {
             }
-            float_val: -0.0141134671867
+            float_val: -0.00745349097997
           }
         }
       }
@@ -7038,7 +8512,7 @@ meta_graphs {
             dtype: DT_FLOAT
             tensor_shape {
             }
-            float_val: 0.0141134671867
+            float_val: 0.00745349097997
           }
         }
       }
@@ -7067,7 +8541,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -7149,7 +8623,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -7184,7 +8658,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -7211,7 +8685,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -7237,7 +8711,7 @@ meta_graphs {
         value {
           shape {
             dim {
-              size: 30120
+              size: 108000
             }
             dim {
               size: 2
@@ -7277,7 +8751,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -7323,7 +8797,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -9376,6 +10850,26 @@ meta_graphs {
     node {
       name: "L2Loss_3"
       op: "L2Loss"
+      input: "fre_w_a1/read"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "L2Loss_4"
+      op: "L2Loss"
       input: "W_soft/read"
       attr {
         key: "T"
@@ -9400,10 +10894,11 @@ meta_graphs {
       input: "L2Loss_1"
       input: "L2Loss_2"
       input: "L2Loss_3"
+      input: "L2Loss_4"
       attr {
         key: "N"
         value {
-          i: 4
+          i: 5
         }
       }
       attr {
@@ -11105,6 +12600,35 @@ meta_graphs {
       }
     }
     node {
+      name: "gradients/AddN_grad/tuple/control_dependency_4"
+      op: "Identity"
+      input: "gradients/mul_grad/tuple/control_dependency_1"
+      input: "^gradients/AddN_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/mul_grad/Reshape_1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+    }
+    node {
       name: "gradients/Reshape_3_grad/Shape"
       op: "Shape"
       input: "SoftmaxCrossEntropyWithLogits"
@@ -11256,7 +12780,7 @@ meta_graphs {
     node {
       name: "gradients/L2Loss_3_grad/mul"
       op: "Mul"
-      input: "W_soft/read"
+      input: "fre_w_a1/read"
       input: "gradients/AddN_grad/tuple/control_dependency_3"
       attr {
         key: "T"
@@ -11270,7 +12794,37 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/L2Loss_4_grad/mul"
+      op: "Mul"
+      input: "W_soft/read"
+      input: "gradients/AddN_grad/tuple/control_dependency_4"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 108000
               }
               dim {
                 size: 2
@@ -11776,7 +13330,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -11812,7 +13366,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -11868,7 +13422,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -11900,7 +13454,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -12234,7 +13788,7 @@ meta_graphs {
     node {
       name: "gradients/AddN"
       op: "AddN"
-      input: "gradients/L2Loss_3_grad/mul"
+      input: "gradients/L2Loss_4_grad/mul"
       input: "gradients/softmax_layer/MatMul_grad/tuple/control_dependency_1"
       attr {
         key: "N"
@@ -12252,7 +13806,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@gradients/L2Loss_3_grad/mul"
+            s: "loc:@gradients/L2Loss_4_grad/mul"
           }
         }
       }
@@ -12262,7 +13816,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -12441,7 +13995,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -12467,7 +14021,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -12636,7 +14190,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 30120
+                size: 108000
               }
             }
           }
@@ -12728,10 +14282,10 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
-                size: 120
+                size: 180
               }
             }
           }
@@ -12823,10 +14377,11 @@ meta_graphs {
       op: "ShapeN"
       input: "f2/Maximum"
       input: "max_pooling1d/Squeeze"
+      input: "average_pooling1d/Squeeze"
       attr {
         key: "N"
         value {
-          i: 2
+          i: 3
         }
       }
       attr {
@@ -12839,6 +14394,11 @@ meta_graphs {
         key: "_output_shapes"
         value {
           list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
             shape {
               dim {
                 size: 3
@@ -12865,16 +14425,22 @@ meta_graphs {
       input: "gradients/concat_grad/mod"
       input: "gradients/concat_grad/ShapeN"
       input: "gradients/concat_grad/ShapeN:1"
+      input: "gradients/concat_grad/ShapeN:2"
       attr {
         key: "N"
         value {
-          i: 2
+          i: 3
         }
       }
       attr {
         key: "_output_shapes"
         value {
           list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
             shape {
               dim {
                 size: 3
@@ -12964,10 +14530,48 @@ meta_graphs {
       }
     }
     node {
+      name: "gradients/concat_grad/Slice_2"
+      op: "Slice"
+      input: "gradients/Flatten/Reshape_grad/Reshape"
+      input: "gradients/concat_grad/ConcatOffset:2"
+      input: "gradients/concat_grad/ShapeN:2"
+      attr {
+        key: "Index"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: -1
+              }
+              dim {
+                size: -1
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
       name: "gradients/concat_grad/tuple/group_deps"
       op: "NoOp"
       input: "^gradients/concat_grad/Slice"
       input: "^gradients/concat_grad/Slice_1"
+      input: "^gradients/concat_grad/Slice_2"
     }
     node {
       name: "gradients/concat_grad/tuple/control_dependency"
@@ -12997,7 +14601,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13035,7 +14639,45 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/concat_grad/tuple/control_dependency_2"
+      op: "Identity"
+      input: "gradients/concat_grad/Slice_2"
+      input: "^gradients/concat_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/concat_grad/Slice_2"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
               }
               dim {
                 size: 60
@@ -13182,7 +14824,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13212,7 +14854,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13272,7 +14914,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13295,7 +14937,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13326,7 +14968,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13396,7 +15038,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13466,7 +15108,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13510,7 +15152,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13548,7 +15190,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13613,7 +15255,75 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/average_pooling1d/Squeeze_grad/Shape"
+      op: "Shape"
+      input: "average_pooling1d/AvgPool"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "gradients/average_pooling1d/Squeeze_grad/Reshape"
+      op: "Reshape"
+      input: "gradients/concat_grad/tuple/control_dependency_2"
+      input: "gradients/average_pooling1d/Squeeze_grad/Shape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tshape"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
               }
               dim {
                 size: 1
@@ -13737,7 +15447,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13828,7 +15538,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13898,7 +15608,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -13971,7 +15681,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14002,7 +15712,103 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "data_format"
+        value {
+          s: "NHWC"
+        }
+      }
+      attr {
+        key: "ksize"
+        value {
+          list {
+            i: 1
+            i: 15
+            i: 1
+            i: 1
+          }
+        }
+      }
+      attr {
+        key: "padding"
+        value {
+          s: "SAME"
+        }
+      }
+      attr {
+        key: "strides"
+        value {
+          list {
+            i: 1
+            i: 1
+            i: 1
+            i: 1
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/average_pooling1d/AvgPool_grad/Shape"
+      op: "Shape"
+      input: "average_pooling1d/ExpandDims"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "gradients/average_pooling1d/AvgPool_grad/AvgPoolGrad"
+      op: "AvgPoolGrad"
+      input: "gradients/average_pooling1d/AvgPool_grad/Shape"
+      input: "gradients/average_pooling1d/Squeeze_grad/Reshape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
               }
               dim {
                 size: 1
@@ -14083,7 +15889,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14156,7 +15962,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14253,7 +16059,72 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/average_pooling1d/ExpandDims_grad/Shape"
+      op: "Shape"
+      input: "a1/Maximum"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "gradients/average_pooling1d/ExpandDims_grad/Reshape"
+      op: "Reshape"
+      input: "gradients/average_pooling1d/AvgPool_grad/AvgPoolGrad"
+      input: "gradients/average_pooling1d/ExpandDims_grad/Shape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tshape"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
               }
               dim {
                 size: 60
@@ -14321,7 +16192,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14468,7 +16339,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14498,7 +16369,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14558,7 +16429,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14581,7 +16452,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14612,7 +16483,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14682,7 +16553,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14752,7 +16623,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14796,7 +16667,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -14834,7 +16705,520 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/Shape"
+      op: "Shape"
+      input: "a1/BiasAdd"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/Shape_1"
+      op: "Shape"
+      input: "a1/mul"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/Shape_2"
+      op: "Shape"
+      input: "gradients/average_pooling1d/ExpandDims_grad/Reshape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/zeros/Const"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+            }
+            float_val: 0.0
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/zeros"
+      op: "Fill"
+      input: "gradients/a1/Maximum_grad/Shape_2"
+      input: "gradients/a1/Maximum_grad/zeros/Const"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/GreaterEqual"
+      op: "GreaterEqual"
+      input: "a1/BiasAdd"
+      input: "a1/mul"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/BroadcastGradientArgs"
+      op: "BroadcastGradientArgs"
+      input: "gradients/a1/Maximum_grad/Shape"
+      input: "gradients/a1/Maximum_grad/Shape_1"
+      attr {
+        key: "T"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+            }
+            shape {
+              dim {
+                size: -1
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/Select"
+      op: "Select"
+      input: "gradients/a1/Maximum_grad/GreaterEqual"
+      input: "gradients/average_pooling1d/ExpandDims_grad/Reshape"
+      input: "gradients/a1/Maximum_grad/zeros"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/LogicalNot"
+      op: "LogicalNot"
+      input: "gradients/a1/Maximum_grad/GreaterEqual"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/Select_1"
+      op: "Select"
+      input: "gradients/a1/Maximum_grad/LogicalNot"
+      input: "gradients/average_pooling1d/ExpandDims_grad/Reshape"
+      input: "gradients/a1/Maximum_grad/zeros"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/Sum"
+      op: "Sum"
+      input: "gradients/a1/Maximum_grad/Select"
+      input: "gradients/a1/Maximum_grad/BroadcastGradientArgs"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tidx"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "keep_dims"
+        value {
+          b: false
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/Reshape"
+      op: "Reshape"
+      input: "gradients/a1/Maximum_grad/Sum"
+      input: "gradients/a1/Maximum_grad/Shape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tshape"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/Sum_1"
+      op: "Sum"
+      input: "gradients/a1/Maximum_grad/Select_1"
+      input: "gradients/a1/Maximum_grad/BroadcastGradientArgs:1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tidx"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "keep_dims"
+        value {
+          b: false
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/Reshape_1"
+      op: "Reshape"
+      input: "gradients/a1/Maximum_grad/Sum_1"
+      input: "gradients/a1/Maximum_grad/Shape_1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tshape"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/tuple/group_deps"
+      op: "NoOp"
+      input: "^gradients/a1/Maximum_grad/Reshape"
+      input: "^gradients/a1/Maximum_grad/Reshape_1"
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/tuple/control_dependency"
+      op: "Identity"
+      input: "gradients/a1/Maximum_grad/Reshape"
+      input: "^gradients/a1/Maximum_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/a1/Maximum_grad/Reshape"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/Maximum_grad/tuple/control_dependency_1"
+      op: "Identity"
+      input: "gradients/a1/Maximum_grad/Reshape_1"
+      input: "^gradients/a1/Maximum_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/a1/Maximum_grad/Reshape_1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
               }
               dim {
                 size: 60
@@ -15072,7 +17456,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -15234,7 +17618,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -15325,7 +17709,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -15395,7 +17779,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -15468,7 +17852,362 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/Shape"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+              dim {
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/Shape_1"
+      op: "Shape"
+      input: "a1/BiasAdd"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/BroadcastGradientArgs"
+      op: "BroadcastGradientArgs"
+      input: "gradients/a1/mul_grad/Shape"
+      input: "gradients/a1/mul_grad/Shape_1"
+      attr {
+        key: "T"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+            }
+            shape {
+              dim {
+                size: -1
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/mul"
+      op: "Mul"
+      input: "gradients/a1/Maximum_grad/tuple/control_dependency_1"
+      input: "a1/BiasAdd"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/Sum"
+      op: "Sum"
+      input: "gradients/a1/mul_grad/mul"
+      input: "gradients/a1/mul_grad/BroadcastGradientArgs"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tidx"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "keep_dims"
+        value {
+          b: false
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/Reshape"
+      op: "Reshape"
+      input: "gradients/a1/mul_grad/Sum"
+      input: "gradients/a1/mul_grad/Shape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tshape"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/mul_1"
+      op: "Mul"
+      input: "a1/mul/x"
+      input: "gradients/a1/Maximum_grad/tuple/control_dependency_1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/Sum_1"
+      op: "Sum"
+      input: "gradients/a1/mul_grad/mul_1"
+      input: "gradients/a1/mul_grad/BroadcastGradientArgs:1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tidx"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "keep_dims"
+        value {
+          b: false
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/Reshape_1"
+      op: "Reshape"
+      input: "gradients/a1/mul_grad/Sum_1"
+      input: "gradients/a1/mul_grad/Shape_1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tshape"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/tuple/group_deps"
+      op: "NoOp"
+      input: "^gradients/a1/mul_grad/Reshape"
+      input: "^gradients/a1/mul_grad/Reshape_1"
+    }
+    node {
+      name: "gradients/a1/mul_grad/tuple/control_dependency"
+      op: "Identity"
+      input: "gradients/a1/mul_grad/Reshape"
+      input: "^gradients/a1/mul_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/a1/mul_grad/Reshape"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/mul_grad/tuple/control_dependency_1"
+      op: "Identity"
+      input: "gradients/a1/mul_grad/Reshape_1"
+      input: "^gradients/a1/mul_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/a1/mul_grad/Reshape_1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
               }
               dim {
                 size: 60
@@ -15533,7 +18272,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -15649,7 +18388,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -15722,7 +18461,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 60
@@ -15748,6 +18487,155 @@ meta_graphs {
         value {
           list {
             s: "loc:@gradients/s1/BiasAdd_grad/BiasAddGrad"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/AddN_3"
+      op: "AddN"
+      input: "gradients/a1/Maximum_grad/tuple/control_dependency"
+      input: "gradients/a1/mul_grad/tuple/control_dependency_1"
+      attr {
+        key: "N"
+        value {
+          i: 2
+        }
+      }
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/a1/Maximum_grad/Reshape"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/BiasAdd_grad/BiasAddGrad"
+      op: "BiasAddGrad"
+      input: "gradients/AddN_3"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "data_format"
+        value {
+          s: "NHWC"
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/BiasAdd_grad/tuple/group_deps"
+      op: "NoOp"
+      input: "^gradients/AddN_3"
+      input: "^gradients/a1/BiasAdd_grad/BiasAddGrad"
+    }
+    node {
+      name: "gradients/a1/BiasAdd_grad/tuple/control_dependency"
+      op: "Identity"
+      input: "gradients/AddN_3"
+      input: "^gradients/a1/BiasAdd_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/a1/Maximum_grad/Reshape"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/BiasAdd_grad/tuple/control_dependency_1"
+      op: "Identity"
+      input: "gradients/a1/BiasAdd_grad/BiasAddGrad"
+      input: "^gradients/a1/BiasAdd_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/a1/BiasAdd_grad/BiasAddGrad"
           }
         }
       }
@@ -15901,7 +18789,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -15931,7 +18819,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -15991,7 +18879,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16014,7 +18902,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16045,7 +18933,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16115,7 +19003,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16185,7 +19073,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16229,7 +19117,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16267,7 +19155,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16278,7 +19166,7 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/AddN_3"
+      name: "gradients/AddN_4"
       op: "AddN"
       input: "gradients/L2Loss_1_grad/mul"
       input: "gradients/f2/conv1d/ExpandDims_1_grad/Reshape"
@@ -16379,7 +19267,75 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/conv1d/Squeeze_grad/Shape"
+      op: "Shape"
+      input: "a1/conv1d/Conv2D"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/conv1d/Squeeze_grad/Reshape"
+      op: "Reshape"
+      input: "gradients/a1/BiasAdd_grad/tuple/control_dependency"
+      input: "gradients/a1/conv1d/Squeeze_grad/Shape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tshape"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 600
               }
               dim {
                 size: 60
@@ -16500,7 +19456,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16591,7 +19547,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16661,7 +19617,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16734,7 +19690,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -16972,7 +19928,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 4
@@ -17024,7 +19980,286 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/AddN_4"
+      name: "gradients/a1/conv1d/Conv2D_grad/Shape"
+      op: "Shape"
+      input: "a1/conv1d/ExpandDims"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/conv1d/Conv2D_grad/Conv2DBackpropInput"
+      op: "Conv2DBackpropInput"
+      input: "gradients/a1/conv1d/Conv2D_grad/Shape"
+      input: "a1/conv1d/ExpandDims_1"
+      input: "gradients/a1/conv1d/Squeeze_grad/Reshape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: -1
+              }
+              dim {
+                size: -1
+              }
+              dim {
+                size: -1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "data_format"
+        value {
+          s: "NHWC"
+        }
+      }
+      attr {
+        key: "padding"
+        value {
+          s: "SAME"
+        }
+      }
+      attr {
+        key: "strides"
+        value {
+          list {
+            i: 1
+            i: 1
+            i: 1
+            i: 1
+          }
+        }
+      }
+      attr {
+        key: "use_cudnn_on_gpu"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/conv1d/Conv2D_grad/Shape_1"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+              dim {
+                size: 4
+              }
+            }
+            tensor_content: "\001\000\000\000\001\000\000\000\004\000\000\000<\000\000\000"
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/conv1d/Conv2D_grad/Conv2DBackpropFilter"
+      op: "Conv2DBackpropFilter"
+      input: "a1/conv1d/ExpandDims"
+      input: "gradients/a1/conv1d/Conv2D_grad/Shape_1"
+      input: "gradients/a1/conv1d/Squeeze_grad/Reshape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "data_format"
+        value {
+          s: "NHWC"
+        }
+      }
+      attr {
+        key: "padding"
+        value {
+          s: "SAME"
+        }
+      }
+      attr {
+        key: "strides"
+        value {
+          list {
+            i: 1
+            i: 1
+            i: 1
+            i: 1
+          }
+        }
+      }
+      attr {
+        key: "use_cudnn_on_gpu"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/conv1d/Conv2D_grad/tuple/group_deps"
+      op: "NoOp"
+      input: "^gradients/a1/conv1d/Conv2D_grad/Conv2DBackpropInput"
+      input: "^gradients/a1/conv1d/Conv2D_grad/Conv2DBackpropFilter"
+    }
+    node {
+      name: "gradients/a1/conv1d/Conv2D_grad/tuple/control_dependency"
+      op: "Identity"
+      input: "gradients/a1/conv1d/Conv2D_grad/Conv2DBackpropInput"
+      input: "^gradients/a1/conv1d/Conv2D_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/a1/conv1d/Conv2D_grad/Conv2DBackpropInput"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/conv1d/Conv2D_grad/tuple/control_dependency_1"
+      op: "Identity"
+      input: "gradients/a1/conv1d/Conv2D_grad/Conv2DBackpropFilter"
+      input: "^gradients/a1/conv1d/Conv2D_grad/tuple/group_deps"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/a1/conv1d/Conv2D_grad/Conv2DBackpropFilter"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/AddN_5"
       op: "AddN"
       input: "gradients/f1/Maximum_grad/tuple/control_dependency"
       input: "gradients/f1/mul_grad/tuple/control_dependency_1"
@@ -17057,7 +20292,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -17070,7 +20305,7 @@ meta_graphs {
     node {
       name: "gradients/f1/BiasAdd_grad/BiasAddGrad"
       op: "BiasAddGrad"
-      input: "gradients/AddN_4"
+      input: "gradients/AddN_5"
       attr {
         key: "T"
         value {
@@ -17099,13 +20334,13 @@ meta_graphs {
     node {
       name: "gradients/f1/BiasAdd_grad/tuple/group_deps"
       op: "NoOp"
-      input: "^gradients/AddN_4"
+      input: "^gradients/AddN_5"
       input: "^gradients/f1/BiasAdd_grad/BiasAddGrad"
     }
     node {
       name: "gradients/f1/BiasAdd_grad/tuple/control_dependency"
       op: "Identity"
-      input: "gradients/AddN_4"
+      input: "gradients/AddN_5"
       input: "^gradients/f1/BiasAdd_grad/tuple/group_deps"
       attr {
         key: "T"
@@ -17130,7 +20365,7 @@ meta_graphs {
                 size: -1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -17245,6 +20480,78 @@ meta_graphs {
       }
     }
     node {
+      name: "gradients/a1/conv1d/ExpandDims_1_grad/Shape"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_INT32
+            tensor_shape {
+              dim {
+                size: 3
+              }
+            }
+            tensor_content: "\001\000\000\000\004\000\000\000<\000\000\000"
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/a1/conv1d/ExpandDims_1_grad/Reshape"
+      op: "Reshape"
+      input: "gradients/a1/conv1d/Conv2D_grad/tuple/control_dependency_1"
+      input: "gradients/a1/conv1d/ExpandDims_1_grad/Shape"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "Tshape"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
       name: "gradients/f1/conv1d/Squeeze_grad/Shape"
       op: "Shape"
       input: "f1/conv1d/Conv2D"
@@ -17302,7 +20609,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 30
@@ -17313,7 +20620,7 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/AddN_5"
+      name: "gradients/AddN_6"
       op: "AddN"
       input: "gradients/L2Loss_2_grad/mul"
       input: "gradients/s1/conv1d/ExpandDims_1_grad/Reshape"
@@ -17344,6 +20651,50 @@ meta_graphs {
             shape {
               dim {
                 size: 15
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "gradients/AddN_7"
+      op: "AddN"
+      input: "gradients/L2Loss_3_grad/mul"
+      input: "gradients/a1/conv1d/ExpandDims_1_grad/Reshape"
+      attr {
+        key: "N"
+        value {
+          i: 2
+        }
+      }
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@gradients/L2Loss_3_grad/mul"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
               }
               dim {
                 size: 4
@@ -17584,7 +20935,7 @@ meta_graphs {
                 size: 1
               }
               dim {
-                size: 251
+                size: 600
               }
               dim {
                 size: 4
@@ -17708,7 +21059,7 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/AddN_6"
+      name: "gradients/AddN_8"
       op: "AddN"
       input: "gradients/L2Loss_grad/mul"
       input: "gradients/f1/conv1d/ExpandDims_1_grad/Reshape"
@@ -20326,6 +23677,762 @@ meta_graphs {
       }
     }
     node {
+      name: "fre_w_a1/Adam/Initializer/zeros"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+            float_val: 0.0
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Adam"
+      op: "VariableV2"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "container"
+        value {
+          s: ""
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "shape"
+        value {
+          shape {
+            dim {
+              size: 1
+            }
+            dim {
+              size: 4
+            }
+            dim {
+              size: 60
+            }
+          }
+        }
+      }
+      attr {
+        key: "shared_name"
+        value {
+          s: ""
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Adam/Assign"
+      op: "Assign"
+      input: "fre_w_a1/Adam"
+      input: "fre_w_a1/Adam/Initializer/zeros"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Adam/read"
+      op: "Identity"
+      input: "fre_w_a1/Adam"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Adam_1/Initializer/zeros"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+            float_val: 0.0
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Adam_1"
+      op: "VariableV2"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "container"
+        value {
+          s: ""
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "shape"
+        value {
+          shape {
+            dim {
+              size: 1
+            }
+            dim {
+              size: 4
+            }
+            dim {
+              size: 60
+            }
+          }
+        }
+      }
+      attr {
+        key: "shared_name"
+        value {
+          s: ""
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Adam_1/Assign"
+      op: "Assign"
+      input: "fre_w_a1/Adam_1"
+      input: "fre_w_a1/Adam_1/Initializer/zeros"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "fre_w_a1/Adam_1/read"
+      op: "Identity"
+      input: "fre_w_a1/Adam_1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Adam/Initializer/zeros"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+              dim {
+                size: 60
+              }
+            }
+            float_val: 0.0
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Adam"
+      op: "VariableV2"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "container"
+        value {
+          s: ""
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "shape"
+        value {
+          shape {
+            dim {
+              size: 60
+            }
+          }
+        }
+      }
+      attr {
+        key: "shared_name"
+        value {
+          s: ""
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Adam/Assign"
+      op: "Assign"
+      input: "fre_bias_a1/Adam"
+      input: "fre_bias_a1/Adam/Initializer/zeros"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Adam/read"
+      op: "Identity"
+      input: "fre_bias_a1/Adam"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Adam_1/Initializer/zeros"
+      op: "Const"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+              dim {
+                size: 60
+              }
+            }
+            float_val: 0.0
+          }
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Adam_1"
+      op: "VariableV2"
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "container"
+        value {
+          s: ""
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "shape"
+        value {
+          shape {
+            dim {
+              size: 60
+            }
+          }
+        }
+      }
+      attr {
+        key: "shared_name"
+        value {
+          s: ""
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Adam_1/Assign"
+      op: "Assign"
+      input: "fre_bias_a1/Adam_1"
+      input: "fre_bias_a1/Adam_1/Initializer/zeros"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "fre_bias_a1/Adam_1/read"
+      op: "Identity"
+      input: "fre_bias_a1/Adam_1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
       name: "W_soft/Adam/Initializer/zeros"
       op: "Const"
       attr {
@@ -20342,7 +24449,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -20364,7 +24471,7 @@ meta_graphs {
             dtype: DT_FLOAT
             tensor_shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -20392,7 +24499,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -20418,7 +24525,7 @@ meta_graphs {
         value {
           shape {
             dim {
-              size: 30120
+              size: 108000
             }
             dim {
               size: 2
@@ -20458,7 +24565,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -20504,7 +24611,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -20531,7 +24638,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -20553,7 +24660,7 @@ meta_graphs {
             dtype: DT_FLOAT
             tensor_shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -20581,7 +24688,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -20607,7 +24714,7 @@ meta_graphs {
         value {
           shape {
             dim {
-              size: 30120
+              size: 108000
             }
             dim {
               size: 2
@@ -20647,7 +24754,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -20693,7 +24800,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -21177,7 +25284,7 @@ meta_graphs {
       input: "Adam/beta1"
       input: "Adam/beta2"
       input: "Adam/epsilon"
-      input: "gradients/AddN_6"
+      input: "gradients/AddN_8"
       attr {
         key: "T"
         value {
@@ -21287,7 +25394,7 @@ meta_graphs {
       input: "Adam/beta1"
       input: "Adam/beta2"
       input: "Adam/epsilon"
-      input: "gradients/AddN_3"
+      input: "gradients/AddN_4"
       attr {
         key: "T"
         value {
@@ -21397,7 +25504,7 @@ meta_graphs {
       input: "Adam/beta1"
       input: "Adam/beta2"
       input: "Adam/epsilon"
-      input: "gradients/AddN_5"
+      input: "gradients/AddN_6"
       attr {
         key: "T"
         value {
@@ -21496,6 +25603,116 @@ meta_graphs {
       }
     }
     node {
+      name: "Adam/update_fre_w_a1/ApplyAdam"
+      op: "ApplyAdam"
+      input: "fre_w_a1"
+      input: "fre_w_a1/Adam"
+      input: "fre_w_a1/Adam_1"
+      input: "beta1_power/read"
+      input: "beta2_power/read"
+      input: "Adam/learning_rate"
+      input: "Adam/beta1"
+      input: "Adam/beta2"
+      input: "Adam/epsilon"
+      input: "gradients/AddN_7"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: false
+        }
+      }
+      attr {
+        key: "use_nesterov"
+        value {
+          b: false
+        }
+      }
+    }
+    node {
+      name: "Adam/update_fre_bias_a1/ApplyAdam"
+      op: "ApplyAdam"
+      input: "fre_bias_a1"
+      input: "fre_bias_a1/Adam"
+      input: "fre_bias_a1/Adam_1"
+      input: "beta1_power/read"
+      input: "beta2_power/read"
+      input: "Adam/learning_rate"
+      input: "Adam/beta1"
+      input: "Adam/beta2"
+      input: "Adam/epsilon"
+      input: "gradients/a1/BiasAdd_grad/tuple/control_dependency_1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_bias_a1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: false
+        }
+      }
+      attr {
+        key: "use_nesterov"
+        value {
+          b: false
+        }
+      }
+    }
+    node {
       name: "Adam/update_W_soft/ApplyAdam"
       op: "ApplyAdam"
       input: "W_soft"
@@ -21528,7 +25745,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -21613,6 +25830,8 @@ meta_graphs {
       input: "^Adam/update_fre_bias_f2/ApplyAdam"
       input: "^Adam/update_fre_w_s1/ApplyAdam"
       input: "^Adam/update_fre_bias_s1/ApplyAdam"
+      input: "^Adam/update_fre_w_a1/ApplyAdam"
+      input: "^Adam/update_fre_bias_a1/ApplyAdam"
       input: "^Adam/update_W_soft/ApplyAdam"
       input: "^Adam/update_bias_soft/ApplyAdam"
       attr {
@@ -21691,6 +25910,8 @@ meta_graphs {
       input: "^Adam/update_fre_bias_f2/ApplyAdam"
       input: "^Adam/update_fre_w_s1/ApplyAdam"
       input: "^Adam/update_fre_bias_s1/ApplyAdam"
+      input: "^Adam/update_fre_w_a1/ApplyAdam"
+      input: "^Adam/update_fre_bias_a1/ApplyAdam"
       input: "^Adam/update_W_soft/ApplyAdam"
       input: "^Adam/update_bias_soft/ApplyAdam"
       attr {
@@ -21767,6 +25988,8 @@ meta_graphs {
       input: "^Adam/update_fre_bias_f2/ApplyAdam"
       input: "^Adam/update_fre_w_s1/ApplyAdam"
       input: "^Adam/update_fre_bias_s1/ApplyAdam"
+      input: "^Adam/update_fre_w_a1/ApplyAdam"
+      input: "^Adam/update_fre_bias_a1/ApplyAdam"
       input: "^Adam/update_W_soft/ApplyAdam"
       input: "^Adam/update_bias_soft/ApplyAdam"
       input: "^Adam/Assign"
@@ -21782,6 +26005,8 @@ meta_graphs {
       input: "^fre_bias_f2/Assign"
       input: "^fre_w_s1/Assign"
       input: "^fre_bias_s1/Assign"
+      input: "^fre_w_a1/Assign"
+      input: "^fre_bias_a1/Assign"
       input: "^W_soft/Assign"
       input: "^bias_soft/Assign"
       input: "^beta1_power/Assign"
@@ -21798,6 +26023,10 @@ meta_graphs {
       input: "^fre_w_s1/Adam_1/Assign"
       input: "^fre_bias_s1/Adam/Assign"
       input: "^fre_bias_s1/Adam_1/Assign"
+      input: "^fre_w_a1/Adam/Assign"
+      input: "^fre_w_a1/Adam_1/Assign"
+      input: "^fre_bias_a1/Adam/Assign"
+      input: "^fre_bias_a1/Adam_1/Assign"
       input: "^W_soft/Adam/Assign"
       input: "^W_soft/Adam_1/Assign"
       input: "^bias_soft/Adam/Assign"
@@ -21842,7 +26071,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 27
+                size: 33
               }
             }
           }
@@ -21861,7 +26090,7 @@ meta_graphs {
             dtype: DT_STRING
             tensor_shape {
               dim {
-                size: 27
+                size: 33
               }
             }
             string_val: "W_soft"
@@ -21872,6 +26101,9 @@ meta_graphs {
             string_val: "bias_soft"
             string_val: "bias_soft/Adam"
             string_val: "bias_soft/Adam_1"
+            string_val: "fre_bias_a1"
+            string_val: "fre_bias_a1/Adam"
+            string_val: "fre_bias_a1/Adam_1"
             string_val: "fre_bias_f1"
             string_val: "fre_bias_f1/Adam"
             string_val: "fre_bias_f1/Adam_1"
@@ -21881,6 +26113,9 @@ meta_graphs {
             string_val: "fre_bias_s1"
             string_val: "fre_bias_s1/Adam"
             string_val: "fre_bias_s1/Adam_1"
+            string_val: "fre_w_a1"
+            string_val: "fre_w_a1/Adam"
+            string_val: "fre_w_a1/Adam_1"
             string_val: "fre_w_f1"
             string_val: "fre_w_f1/Adam"
             string_val: "fre_w_f1/Adam_1"
@@ -21904,7 +26139,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 27
+                size: 33
               }
             }
           }
@@ -21923,9 +26158,15 @@ meta_graphs {
             dtype: DT_STRING
             tensor_shape {
               dim {
-                size: 27
+                size: 33
               }
             }
+            string_val: ""
+            string_val: ""
+            string_val: ""
+            string_val: ""
+            string_val: ""
+            string_val: ""
             string_val: ""
             string_val: ""
             string_val: ""
@@ -21971,6 +26212,9 @@ meta_graphs {
       input: "bias_soft"
       input: "bias_soft/Adam"
       input: "bias_soft/Adam_1"
+      input: "fre_bias_a1"
+      input: "fre_bias_a1/Adam"
+      input: "fre_bias_a1/Adam_1"
       input: "fre_bias_f1"
       input: "fre_bias_f1/Adam"
       input: "fre_bias_f1/Adam_1"
@@ -21980,6 +26224,9 @@ meta_graphs {
       input: "fre_bias_s1"
       input: "fre_bias_s1/Adam"
       input: "fre_bias_s1/Adam_1"
+      input: "fre_w_a1"
+      input: "fre_w_a1/Adam"
+      input: "fre_w_a1/Adam_1"
       input: "fre_w_f1"
       input: "fre_w_f1/Adam"
       input: "fre_w_f1/Adam_1"
@@ -21994,6 +26241,12 @@ meta_graphs {
         key: "dtypes"
         value {
           list {
+            type: DT_FLOAT
+            type: DT_FLOAT
+            type: DT_FLOAT
+            type: DT_FLOAT
+            type: DT_FLOAT
+            type: DT_FLOAT
             type: DT_FLOAT
             type: DT_FLOAT
             type: DT_FLOAT
@@ -22176,7 +26429,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -22320,7 +26573,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -22464,7 +26717,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -23216,7 +27469,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f1"
+            string_val: "fre_bias_a1"
           }
         }
       }
@@ -23285,7 +27538,7 @@ meta_graphs {
     node {
       name: "save/Assign_8"
       op: "Assign"
-      input: "fre_bias_f1"
+      input: "fre_bias_a1"
       input: "save/RestoreV2_8"
       attr {
         key: "T"
@@ -23297,7 +27550,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f1"
+            s: "loc:@fre_bias_a1"
           }
         }
       }
@@ -23307,7 +27560,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -23357,7 +27610,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f1/Adam"
+            string_val: "fre_bias_a1/Adam"
           }
         }
       }
@@ -23426,7 +27679,7 @@ meta_graphs {
     node {
       name: "save/Assign_9"
       op: "Assign"
-      input: "fre_bias_f1/Adam"
+      input: "fre_bias_a1/Adam"
       input: "save/RestoreV2_9"
       attr {
         key: "T"
@@ -23438,7 +27691,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f1"
+            s: "loc:@fre_bias_a1"
           }
         }
       }
@@ -23448,7 +27701,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -23498,7 +27751,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f1/Adam_1"
+            string_val: "fre_bias_a1/Adam_1"
           }
         }
       }
@@ -23567,7 +27820,7 @@ meta_graphs {
     node {
       name: "save/Assign_10"
       op: "Assign"
-      input: "fre_bias_f1/Adam_1"
+      input: "fre_bias_a1/Adam_1"
       input: "save/RestoreV2_10"
       attr {
         key: "T"
@@ -23579,7 +27832,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f1"
+            s: "loc:@fre_bias_a1"
           }
         }
       }
@@ -23589,7 +27842,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -23639,7 +27892,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f2"
+            string_val: "fre_bias_f1"
           }
         }
       }
@@ -23708,7 +27961,7 @@ meta_graphs {
     node {
       name: "save/Assign_11"
       op: "Assign"
-      input: "fre_bias_f2"
+      input: "fre_bias_f1"
       input: "save/RestoreV2_11"
       attr {
         key: "T"
@@ -23720,7 +27973,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f2"
+            s: "loc:@fre_bias_f1"
           }
         }
       }
@@ -23730,7 +27983,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -23780,7 +28033,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f2/Adam"
+            string_val: "fre_bias_f1/Adam"
           }
         }
       }
@@ -23849,7 +28102,7 @@ meta_graphs {
     node {
       name: "save/Assign_12"
       op: "Assign"
-      input: "fre_bias_f2/Adam"
+      input: "fre_bias_f1/Adam"
       input: "save/RestoreV2_12"
       attr {
         key: "T"
@@ -23861,7 +28114,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f2"
+            s: "loc:@fre_bias_f1"
           }
         }
       }
@@ -23871,7 +28124,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -23921,7 +28174,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f2/Adam_1"
+            string_val: "fre_bias_f1/Adam_1"
           }
         }
       }
@@ -23990,7 +28243,7 @@ meta_graphs {
     node {
       name: "save/Assign_13"
       op: "Assign"
-      input: "fre_bias_f2/Adam_1"
+      input: "fre_bias_f1/Adam_1"
       input: "save/RestoreV2_13"
       attr {
         key: "T"
@@ -24002,7 +28255,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f2"
+            s: "loc:@fre_bias_f1"
           }
         }
       }
@@ -24012,7 +28265,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -24062,7 +28315,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_s1"
+            string_val: "fre_bias_f2"
           }
         }
       }
@@ -24131,7 +28384,7 @@ meta_graphs {
     node {
       name: "save/Assign_14"
       op: "Assign"
-      input: "fre_bias_s1"
+      input: "fre_bias_f2"
       input: "save/RestoreV2_14"
       attr {
         key: "T"
@@ -24143,7 +28396,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_s1"
+            s: "loc:@fre_bias_f2"
           }
         }
       }
@@ -24203,7 +28456,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_s1/Adam"
+            string_val: "fre_bias_f2/Adam"
           }
         }
       }
@@ -24272,7 +28525,7 @@ meta_graphs {
     node {
       name: "save/Assign_15"
       op: "Assign"
-      input: "fre_bias_s1/Adam"
+      input: "fre_bias_f2/Adam"
       input: "save/RestoreV2_15"
       attr {
         key: "T"
@@ -24284,7 +28537,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_s1"
+            s: "loc:@fre_bias_f2"
           }
         }
       }
@@ -24344,7 +28597,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_s1/Adam_1"
+            string_val: "fre_bias_f2/Adam_1"
           }
         }
       }
@@ -24413,7 +28666,7 @@ meta_graphs {
     node {
       name: "save/Assign_16"
       op: "Assign"
-      input: "fre_bias_s1/Adam_1"
+      input: "fre_bias_f2/Adam_1"
       input: "save/RestoreV2_16"
       attr {
         key: "T"
@@ -24425,7 +28678,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_s1"
+            s: "loc:@fre_bias_f2"
           }
         }
       }
@@ -24485,7 +28738,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f1"
+            string_val: "fre_bias_s1"
           }
         }
       }
@@ -24554,7 +28807,7 @@ meta_graphs {
     node {
       name: "save/Assign_17"
       op: "Assign"
-      input: "fre_w_f1"
+      input: "fre_bias_s1"
       input: "save/RestoreV2_17"
       attr {
         key: "T"
@@ -24566,7 +28819,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f1"
+            s: "loc:@fre_bias_s1"
           }
         }
       }
@@ -24576,13 +28829,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
-              }
-              dim {
-                size: 4
-              }
-              dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -24632,7 +28879,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f1/Adam"
+            string_val: "fre_bias_s1/Adam"
           }
         }
       }
@@ -24701,7 +28948,7 @@ meta_graphs {
     node {
       name: "save/Assign_18"
       op: "Assign"
-      input: "fre_w_f1/Adam"
+      input: "fre_bias_s1/Adam"
       input: "save/RestoreV2_18"
       attr {
         key: "T"
@@ -24713,7 +28960,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f1"
+            s: "loc:@fre_bias_s1"
           }
         }
       }
@@ -24723,13 +28970,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
-              }
-              dim {
-                size: 4
-              }
-              dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -24779,7 +29020,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f1/Adam_1"
+            string_val: "fre_bias_s1/Adam_1"
           }
         }
       }
@@ -24848,7 +29089,7 @@ meta_graphs {
     node {
       name: "save/Assign_19"
       op: "Assign"
-      input: "fre_w_f1/Adam_1"
+      input: "fre_bias_s1/Adam_1"
       input: "save/RestoreV2_19"
       attr {
         key: "T"
@@ -24860,7 +29101,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f1"
+            s: "loc:@fre_bias_s1"
           }
         }
       }
@@ -24870,13 +29111,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
-              }
-              dim {
-                size: 4
-              }
-              dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -24926,7 +29161,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f2"
+            string_val: "fre_w_a1"
           }
         }
       }
@@ -24995,7 +29230,7 @@ meta_graphs {
     node {
       name: "save/Assign_20"
       op: "Assign"
-      input: "fre_w_f2"
+      input: "fre_w_a1"
       input: "save/RestoreV2_20"
       attr {
         key: "T"
@@ -25007,7 +29242,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f2"
+            s: "loc:@fre_w_a1"
           }
         }
       }
@@ -25017,10 +29252,10 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
+                size: 1
               }
               dim {
-                size: 30
+                size: 4
               }
               dim {
                 size: 60
@@ -25073,7 +29308,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f2/Adam"
+            string_val: "fre_w_a1/Adam"
           }
         }
       }
@@ -25142,7 +29377,7 @@ meta_graphs {
     node {
       name: "save/Assign_21"
       op: "Assign"
-      input: "fre_w_f2/Adam"
+      input: "fre_w_a1/Adam"
       input: "save/RestoreV2_21"
       attr {
         key: "T"
@@ -25154,7 +29389,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f2"
+            s: "loc:@fre_w_a1"
           }
         }
       }
@@ -25164,10 +29399,10 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
+                size: 1
               }
               dim {
-                size: 30
+                size: 4
               }
               dim {
                 size: 60
@@ -25220,7 +29455,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f2/Adam_1"
+            string_val: "fre_w_a1/Adam_1"
           }
         }
       }
@@ -25289,7 +29524,7 @@ meta_graphs {
     node {
       name: "save/Assign_22"
       op: "Assign"
-      input: "fre_w_f2/Adam_1"
+      input: "fre_w_a1/Adam_1"
       input: "save/RestoreV2_22"
       attr {
         key: "T"
@@ -25301,7 +29536,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f2"
+            s: "loc:@fre_w_a1"
           }
         }
       }
@@ -25311,10 +29546,10 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
+                size: 1
               }
               dim {
-                size: 30
+                size: 4
               }
               dim {
                 size: 60
@@ -25367,7 +29602,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_s1"
+            string_val: "fre_w_f1"
           }
         }
       }
@@ -25436,7 +29671,7 @@ meta_graphs {
     node {
       name: "save/Assign_23"
       op: "Assign"
-      input: "fre_w_s1"
+      input: "fre_w_f1"
       input: "save/RestoreV2_23"
       attr {
         key: "T"
@@ -25448,7 +29683,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_s1"
+            s: "loc:@fre_w_f1"
           }
         }
       }
@@ -25464,7 +29699,7 @@ meta_graphs {
                 size: 4
               }
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -25514,7 +29749,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_s1/Adam"
+            string_val: "fre_w_f1/Adam"
           }
         }
       }
@@ -25583,7 +29818,7 @@ meta_graphs {
     node {
       name: "save/Assign_24"
       op: "Assign"
-      input: "fre_w_s1/Adam"
+      input: "fre_w_f1/Adam"
       input: "save/RestoreV2_24"
       attr {
         key: "T"
@@ -25595,7 +29830,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_s1"
+            s: "loc:@fre_w_f1"
           }
         }
       }
@@ -25611,7 +29846,7 @@ meta_graphs {
                 size: 4
               }
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -25661,7 +29896,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_s1/Adam_1"
+            string_val: "fre_w_f1/Adam_1"
           }
         }
       }
@@ -25730,7 +29965,7 @@ meta_graphs {
     node {
       name: "save/Assign_25"
       op: "Assign"
-      input: "fre_w_s1/Adam_1"
+      input: "fre_w_f1/Adam_1"
       input: "save/RestoreV2_25"
       attr {
         key: "T"
@@ -25742,7 +29977,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_s1"
+            s: "loc:@fre_w_f1"
           }
         }
       }
@@ -25758,7 +29993,7 @@ meta_graphs {
                 size: 4
               }
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -25808,7 +30043,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "is_training"
+            string_val: "fre_w_f2"
           }
         }
       }
@@ -25869,7 +30104,7 @@ meta_graphs {
         key: "dtypes"
         value {
           list {
-            type: DT_BOOL
+            type: DT_FLOAT
           }
         }
       }
@@ -25877,8 +30112,890 @@ meta_graphs {
     node {
       name: "save/Assign_26"
       op: "Assign"
-      input: "is_training"
+      input: "fre_w_f2"
       input: "save/RestoreV2_26"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_f2"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 30
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_27/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_f2/Adam"
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_27/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_27"
+      op: "RestoreV2"
+      input: "save/Const"
+      input: "save/RestoreV2_27/tensor_names"
+      input: "save/RestoreV2_27/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save/Assign_27"
+      op: "Assign"
+      input: "fre_w_f2/Adam"
+      input: "save/RestoreV2_27"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_f2"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 30
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_28/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_f2/Adam_1"
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_28/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_28"
+      op: "RestoreV2"
+      input: "save/Const"
+      input: "save/RestoreV2_28/tensor_names"
+      input: "save/RestoreV2_28/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save/Assign_28"
+      op: "Assign"
+      input: "fre_w_f2/Adam_1"
+      input: "save/RestoreV2_28"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_f2"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 30
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_29/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_s1"
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_29/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_29"
+      op: "RestoreV2"
+      input: "save/Const"
+      input: "save/RestoreV2_29/tensor_names"
+      input: "save/RestoreV2_29/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save/Assign_29"
+      op: "Assign"
+      input: "fre_w_s1"
+      input: "save/RestoreV2_29"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_s1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_30/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_s1/Adam"
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_30/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_30"
+      op: "RestoreV2"
+      input: "save/Const"
+      input: "save/RestoreV2_30/tensor_names"
+      input: "save/RestoreV2_30/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save/Assign_30"
+      op: "Assign"
+      input: "fre_w_s1/Adam"
+      input: "save/RestoreV2_30"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_s1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_31/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_s1/Adam_1"
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_31/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_31"
+      op: "RestoreV2"
+      input: "save/Const"
+      input: "save/RestoreV2_31/tensor_names"
+      input: "save/RestoreV2_31/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save/Assign_31"
+      op: "Assign"
+      input: "fre_w_s1/Adam_1"
+      input: "save/RestoreV2_31"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_s1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_32/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "is_training"
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_32/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save/RestoreV2_32"
+      op: "RestoreV2"
+      input: "save/Const"
+      input: "save/RestoreV2_32/tensor_names"
+      input: "save/RestoreV2_32/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_BOOL
+          }
+        }
+      }
+    }
+    node {
+      name: "save/Assign_32"
+      op: "Assign"
+      input: "is_training"
+      input: "save/RestoreV2_32"
       attr {
         key: "T"
         value {
@@ -25945,6 +31062,12 @@ meta_graphs {
       input: "^save/Assign_24"
       input: "^save/Assign_25"
       input: "^save/Assign_26"
+      input: "^save/Assign_27"
+      input: "^save/Assign_28"
+      input: "^save/Assign_29"
+      input: "^save/Assign_30"
+      input: "^save/Assign_31"
+      input: "^save/Assign_32"
     }
     node {
       name: "save_1/Const"
@@ -26001,7 +31124,7 @@ meta_graphs {
             dtype: DT_STRING
             tensor_shape {
             }
-            string_val: "_temp_d3418ddde1ce44a1b6f76856613c011a/part"
+            string_val: "_temp_0b4c80dc79b34fca92290ca58ae9d408/part"
           }
         }
       }
@@ -26118,7 +31241,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 27
+                size: 33
               }
             }
           }
@@ -26137,7 +31260,7 @@ meta_graphs {
             dtype: DT_STRING
             tensor_shape {
               dim {
-                size: 27
+                size: 33
               }
             }
             string_val: "W_soft"
@@ -26148,6 +31271,9 @@ meta_graphs {
             string_val: "bias_soft"
             string_val: "bias_soft/Adam"
             string_val: "bias_soft/Adam_1"
+            string_val: "fre_bias_a1"
+            string_val: "fre_bias_a1/Adam"
+            string_val: "fre_bias_a1/Adam_1"
             string_val: "fre_bias_f1"
             string_val: "fre_bias_f1/Adam"
             string_val: "fre_bias_f1/Adam_1"
@@ -26157,6 +31283,9 @@ meta_graphs {
             string_val: "fre_bias_s1"
             string_val: "fre_bias_s1/Adam"
             string_val: "fre_bias_s1/Adam_1"
+            string_val: "fre_w_a1"
+            string_val: "fre_w_a1/Adam"
+            string_val: "fre_w_a1/Adam_1"
             string_val: "fre_w_f1"
             string_val: "fre_w_f1/Adam"
             string_val: "fre_w_f1/Adam_1"
@@ -26180,7 +31309,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 27
+                size: 33
               }
             }
           }
@@ -26199,9 +31328,15 @@ meta_graphs {
             dtype: DT_STRING
             tensor_shape {
               dim {
-                size: 27
+                size: 33
               }
             }
+            string_val: ""
+            string_val: ""
+            string_val: ""
+            string_val: ""
+            string_val: ""
+            string_val: ""
             string_val: ""
             string_val: ""
             string_val: ""
@@ -26247,6 +31382,9 @@ meta_graphs {
       input: "bias_soft"
       input: "bias_soft/Adam"
       input: "bias_soft/Adam_1"
+      input: "fre_bias_a1"
+      input: "fre_bias_a1/Adam"
+      input: "fre_bias_a1/Adam_1"
       input: "fre_bias_f1"
       input: "fre_bias_f1/Adam"
       input: "fre_bias_f1/Adam_1"
@@ -26256,6 +31394,9 @@ meta_graphs {
       input: "fre_bias_s1"
       input: "fre_bias_s1/Adam"
       input: "fre_bias_s1/Adam_1"
+      input: "fre_w_a1"
+      input: "fre_w_a1/Adam"
+      input: "fre_w_a1/Adam_1"
       input: "fre_w_f1"
       input: "fre_w_f1/Adam"
       input: "fre_w_f1/Adam_1"
@@ -26270,6 +31411,12 @@ meta_graphs {
         key: "dtypes"
         value {
           list {
+            type: DT_FLOAT
+            type: DT_FLOAT
+            type: DT_FLOAT
+            type: DT_FLOAT
+            type: DT_FLOAT
+            type: DT_FLOAT
             type: DT_FLOAT
             type: DT_FLOAT
             type: DT_FLOAT
@@ -26522,7 +31669,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -26666,7 +31813,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -26810,7 +31957,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30120
+                size: 108000
               }
               dim {
                 size: 2
@@ -27562,7 +32709,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f1"
+            string_val: "fre_bias_a1"
           }
         }
       }
@@ -27631,7 +32778,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_8"
       op: "Assign"
-      input: "fre_bias_f1"
+      input: "fre_bias_a1"
       input: "save_1/RestoreV2_8"
       attr {
         key: "T"
@@ -27643,7 +32790,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f1"
+            s: "loc:@fre_bias_a1"
           }
         }
       }
@@ -27653,7 +32800,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -27703,7 +32850,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f1/Adam"
+            string_val: "fre_bias_a1/Adam"
           }
         }
       }
@@ -27772,7 +32919,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_9"
       op: "Assign"
-      input: "fre_bias_f1/Adam"
+      input: "fre_bias_a1/Adam"
       input: "save_1/RestoreV2_9"
       attr {
         key: "T"
@@ -27784,7 +32931,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f1"
+            s: "loc:@fre_bias_a1"
           }
         }
       }
@@ -27794,7 +32941,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -27844,7 +32991,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f1/Adam_1"
+            string_val: "fre_bias_a1/Adam_1"
           }
         }
       }
@@ -27913,7 +33060,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_10"
       op: "Assign"
-      input: "fre_bias_f1/Adam_1"
+      input: "fre_bias_a1/Adam_1"
       input: "save_1/RestoreV2_10"
       attr {
         key: "T"
@@ -27925,7 +33072,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f1"
+            s: "loc:@fre_bias_a1"
           }
         }
       }
@@ -27935,7 +33082,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -27985,7 +33132,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f2"
+            string_val: "fre_bias_f1"
           }
         }
       }
@@ -28054,7 +33201,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_11"
       op: "Assign"
-      input: "fre_bias_f2"
+      input: "fre_bias_f1"
       input: "save_1/RestoreV2_11"
       attr {
         key: "T"
@@ -28066,7 +33213,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f2"
+            s: "loc:@fre_bias_f1"
           }
         }
       }
@@ -28076,7 +33223,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -28126,7 +33273,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f2/Adam"
+            string_val: "fre_bias_f1/Adam"
           }
         }
       }
@@ -28195,7 +33342,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_12"
       op: "Assign"
-      input: "fre_bias_f2/Adam"
+      input: "fre_bias_f1/Adam"
       input: "save_1/RestoreV2_12"
       attr {
         key: "T"
@@ -28207,7 +33354,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f2"
+            s: "loc:@fre_bias_f1"
           }
         }
       }
@@ -28217,7 +33364,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -28267,7 +33414,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_f2/Adam_1"
+            string_val: "fre_bias_f1/Adam_1"
           }
         }
       }
@@ -28336,7 +33483,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_13"
       op: "Assign"
-      input: "fre_bias_f2/Adam_1"
+      input: "fre_bias_f1/Adam_1"
       input: "save_1/RestoreV2_13"
       attr {
         key: "T"
@@ -28348,7 +33495,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_f2"
+            s: "loc:@fre_bias_f1"
           }
         }
       }
@@ -28358,7 +33505,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -28408,7 +33555,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_s1"
+            string_val: "fre_bias_f2"
           }
         }
       }
@@ -28477,7 +33624,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_14"
       op: "Assign"
-      input: "fre_bias_s1"
+      input: "fre_bias_f2"
       input: "save_1/RestoreV2_14"
       attr {
         key: "T"
@@ -28489,7 +33636,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_s1"
+            s: "loc:@fre_bias_f2"
           }
         }
       }
@@ -28549,7 +33696,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_s1/Adam"
+            string_val: "fre_bias_f2/Adam"
           }
         }
       }
@@ -28618,7 +33765,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_15"
       op: "Assign"
-      input: "fre_bias_s1/Adam"
+      input: "fre_bias_f2/Adam"
       input: "save_1/RestoreV2_15"
       attr {
         key: "T"
@@ -28630,7 +33777,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_s1"
+            s: "loc:@fre_bias_f2"
           }
         }
       }
@@ -28690,7 +33837,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_bias_s1/Adam_1"
+            string_val: "fre_bias_f2/Adam_1"
           }
         }
       }
@@ -28759,7 +33906,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_16"
       op: "Assign"
-      input: "fre_bias_s1/Adam_1"
+      input: "fre_bias_f2/Adam_1"
       input: "save_1/RestoreV2_16"
       attr {
         key: "T"
@@ -28771,7 +33918,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_bias_s1"
+            s: "loc:@fre_bias_f2"
           }
         }
       }
@@ -28831,7 +33978,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f1"
+            string_val: "fre_bias_s1"
           }
         }
       }
@@ -28900,7 +34047,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_17"
       op: "Assign"
-      input: "fre_w_f1"
+      input: "fre_bias_s1"
       input: "save_1/RestoreV2_17"
       attr {
         key: "T"
@@ -28912,7 +34059,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f1"
+            s: "loc:@fre_bias_s1"
           }
         }
       }
@@ -28922,13 +34069,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
-              }
-              dim {
-                size: 4
-              }
-              dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -28978,7 +34119,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f1/Adam"
+            string_val: "fre_bias_s1/Adam"
           }
         }
       }
@@ -29047,7 +34188,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_18"
       op: "Assign"
-      input: "fre_w_f1/Adam"
+      input: "fre_bias_s1/Adam"
       input: "save_1/RestoreV2_18"
       attr {
         key: "T"
@@ -29059,7 +34200,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f1"
+            s: "loc:@fre_bias_s1"
           }
         }
       }
@@ -29069,13 +34210,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
-              }
-              dim {
-                size: 4
-              }
-              dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -29125,7 +34260,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f1/Adam_1"
+            string_val: "fre_bias_s1/Adam_1"
           }
         }
       }
@@ -29194,7 +34329,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_19"
       op: "Assign"
-      input: "fre_w_f1/Adam_1"
+      input: "fre_bias_s1/Adam_1"
       input: "save_1/RestoreV2_19"
       attr {
         key: "T"
@@ -29206,7 +34341,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f1"
+            s: "loc:@fre_bias_s1"
           }
         }
       }
@@ -29216,13 +34351,7 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
-              }
-              dim {
-                size: 4
-              }
-              dim {
-                size: 30
+                size: 60
               }
             }
           }
@@ -29272,7 +34401,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f2"
+            string_val: "fre_w_a1"
           }
         }
       }
@@ -29341,7 +34470,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_20"
       op: "Assign"
-      input: "fre_w_f2"
+      input: "fre_w_a1"
       input: "save_1/RestoreV2_20"
       attr {
         key: "T"
@@ -29353,7 +34482,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f2"
+            s: "loc:@fre_w_a1"
           }
         }
       }
@@ -29363,10 +34492,10 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
+                size: 1
               }
               dim {
-                size: 30
+                size: 4
               }
               dim {
                 size: 60
@@ -29419,7 +34548,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f2/Adam"
+            string_val: "fre_w_a1/Adam"
           }
         }
       }
@@ -29488,7 +34617,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_21"
       op: "Assign"
-      input: "fre_w_f2/Adam"
+      input: "fre_w_a1/Adam"
       input: "save_1/RestoreV2_21"
       attr {
         key: "T"
@@ -29500,7 +34629,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f2"
+            s: "loc:@fre_w_a1"
           }
         }
       }
@@ -29510,10 +34639,10 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
+                size: 1
               }
               dim {
-                size: 30
+                size: 4
               }
               dim {
                 size: 60
@@ -29566,7 +34695,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_f2/Adam_1"
+            string_val: "fre_w_a1/Adam_1"
           }
         }
       }
@@ -29635,7 +34764,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_22"
       op: "Assign"
-      input: "fre_w_f2/Adam_1"
+      input: "fre_w_a1/Adam_1"
       input: "save_1/RestoreV2_22"
       attr {
         key: "T"
@@ -29647,7 +34776,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_f2"
+            s: "loc:@fre_w_a1"
           }
         }
       }
@@ -29657,10 +34786,10 @@ meta_graphs {
           list {
             shape {
               dim {
-                size: 15
+                size: 1
               }
               dim {
-                size: 30
+                size: 4
               }
               dim {
                 size: 60
@@ -29713,7 +34842,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_s1"
+            string_val: "fre_w_f1"
           }
         }
       }
@@ -29782,7 +34911,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_23"
       op: "Assign"
-      input: "fre_w_s1"
+      input: "fre_w_f1"
       input: "save_1/RestoreV2_23"
       attr {
         key: "T"
@@ -29794,7 +34923,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_s1"
+            s: "loc:@fre_w_f1"
           }
         }
       }
@@ -29810,7 +34939,7 @@ meta_graphs {
                 size: 4
               }
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -29860,7 +34989,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_s1/Adam"
+            string_val: "fre_w_f1/Adam"
           }
         }
       }
@@ -29929,7 +35058,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_24"
       op: "Assign"
-      input: "fre_w_s1/Adam"
+      input: "fre_w_f1/Adam"
       input: "save_1/RestoreV2_24"
       attr {
         key: "T"
@@ -29941,7 +35070,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_s1"
+            s: "loc:@fre_w_f1"
           }
         }
       }
@@ -29957,7 +35086,7 @@ meta_graphs {
                 size: 4
               }
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -30007,7 +35136,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "fre_w_s1/Adam_1"
+            string_val: "fre_w_f1/Adam_1"
           }
         }
       }
@@ -30076,7 +35205,7 @@ meta_graphs {
     node {
       name: "save_1/Assign_25"
       op: "Assign"
-      input: "fre_w_s1/Adam_1"
+      input: "fre_w_f1/Adam_1"
       input: "save_1/RestoreV2_25"
       attr {
         key: "T"
@@ -30088,7 +35217,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@fre_w_s1"
+            s: "loc:@fre_w_f1"
           }
         }
       }
@@ -30104,7 +35233,7 @@ meta_graphs {
                 size: 4
               }
               dim {
-                size: 60
+                size: 30
               }
             }
           }
@@ -30154,7 +35283,7 @@ meta_graphs {
                 size: 1
               }
             }
-            string_val: "is_training"
+            string_val: "fre_w_f2"
           }
         }
       }
@@ -30215,7 +35344,7 @@ meta_graphs {
         key: "dtypes"
         value {
           list {
-            type: DT_BOOL
+            type: DT_FLOAT
           }
         }
       }
@@ -30223,8 +35352,890 @@ meta_graphs {
     node {
       name: "save_1/Assign_26"
       op: "Assign"
-      input: "is_training"
+      input: "fre_w_f2"
       input: "save_1/RestoreV2_26"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_f2"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 30
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_27/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_f2/Adam"
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_27/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_27"
+      op: "RestoreV2"
+      input: "save_1/Const"
+      input: "save_1/RestoreV2_27/tensor_names"
+      input: "save_1/RestoreV2_27/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/Assign_27"
+      op: "Assign"
+      input: "fre_w_f2/Adam"
+      input: "save_1/RestoreV2_27"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_f2"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 30
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_28/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_f2/Adam_1"
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_28/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_28"
+      op: "RestoreV2"
+      input: "save_1/Const"
+      input: "save_1/RestoreV2_28/tensor_names"
+      input: "save_1/RestoreV2_28/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/Assign_28"
+      op: "Assign"
+      input: "fre_w_f2/Adam_1"
+      input: "save_1/RestoreV2_28"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_f2"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 30
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_29/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_s1"
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_29/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_29"
+      op: "RestoreV2"
+      input: "save_1/Const"
+      input: "save_1/RestoreV2_29/tensor_names"
+      input: "save_1/RestoreV2_29/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/Assign_29"
+      op: "Assign"
+      input: "fre_w_s1"
+      input: "save_1/RestoreV2_29"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_s1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_30/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_s1/Adam"
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_30/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_30"
+      op: "RestoreV2"
+      input: "save_1/Const"
+      input: "save_1/RestoreV2_30/tensor_names"
+      input: "save_1/RestoreV2_30/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/Assign_30"
+      op: "Assign"
+      input: "fre_w_s1/Adam"
+      input: "save_1/RestoreV2_30"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_s1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_31/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "fre_w_s1/Adam_1"
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_31/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_31"
+      op: "RestoreV2"
+      input: "save_1/Const"
+      input: "save_1/RestoreV2_31/tensor_names"
+      input: "save_1/RestoreV2_31/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_FLOAT
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/Assign_31"
+      op: "Assign"
+      input: "fre_w_s1/Adam_1"
+      input: "save_1/RestoreV2_31"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_class"
+        value {
+          list {
+            s: "loc:@fre_w_s1"
+          }
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 15
+              }
+              dim {
+                size: 4
+              }
+              dim {
+                size: 60
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "use_locking"
+        value {
+          b: true
+        }
+      }
+      attr {
+        key: "validate_shape"
+        value {
+          b: true
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_32/tensor_names"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: "is_training"
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_32/shape_and_slices"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 1
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_STRING
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_STRING
+            tensor_shape {
+              dim {
+                size: 1
+              }
+            }
+            string_val: ""
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/RestoreV2_32"
+      op: "RestoreV2"
+      input: "save_1/Const"
+      input: "save_1/RestoreV2_32/tensor_names"
+      input: "save_1/RestoreV2_32/shape_and_slices"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtypes"
+        value {
+          list {
+            type: DT_BOOL
+          }
+        }
+      }
+    }
+    node {
+      name: "save_1/Assign_32"
+      op: "Assign"
+      input: "is_training"
+      input: "save_1/RestoreV2_32"
       attr {
         key: "T"
         value {
@@ -30291,6 +36302,12 @@ meta_graphs {
       input: "^save_1/Assign_24"
       input: "^save_1/Assign_25"
       input: "^save_1/Assign_26"
+      input: "^save_1/Assign_27"
+      input: "^save_1/Assign_28"
+      input: "^save_1/Assign_29"
+      input: "^save_1/Assign_30"
+      input: "^save_1/Assign_31"
+      input: "^save_1/Assign_32"
     }
     node {
       name: "save_1/restore_all"
@@ -30353,6 +36370,8 @@ meta_graphs {
         value: "\n\rfre_bias_f2:0\022\022fre_bias_f2/Assign\032\022fre_bias_f2/read:0"
         value: "\n\nfre_w_s1:0\022\017fre_w_s1/Assign\032\017fre_w_s1/read:0"
         value: "\n\rfre_bias_s1:0\022\022fre_bias_s1/Assign\032\022fre_bias_s1/read:0"
+        value: "\n\nfre_w_a1:0\022\017fre_w_a1/Assign\032\017fre_w_a1/read:0"
+        value: "\n\rfre_bias_a1:0\022\022fre_bias_a1/Assign\032\022fre_bias_a1/read:0"
         value: "\n\010W_soft:0\022\rW_soft/Assign\032\rW_soft/read:0"
         value: "\n\013bias_soft:0\022\020bias_soft/Assign\032\020bias_soft/read:0"
       }
@@ -30369,6 +36388,8 @@ meta_graphs {
         value: "\n\rfre_bias_f2:0\022\022fre_bias_f2/Assign\032\022fre_bias_f2/read:0"
         value: "\n\nfre_w_s1:0\022\017fre_w_s1/Assign\032\017fre_w_s1/read:0"
         value: "\n\rfre_bias_s1:0\022\022fre_bias_s1/Assign\032\022fre_bias_s1/read:0"
+        value: "\n\nfre_w_a1:0\022\017fre_w_a1/Assign\032\017fre_w_a1/read:0"
+        value: "\n\rfre_bias_a1:0\022\022fre_bias_a1/Assign\032\022fre_bias_a1/read:0"
         value: "\n\010W_soft:0\022\rW_soft/Assign\032\rW_soft/read:0"
         value: "\n\013bias_soft:0\022\020bias_soft/Assign\032\020bias_soft/read:0"
         value: "\n\rbeta1_power:0\022\022beta1_power/Assign\032\022beta1_power/read:0"
@@ -30385,6 +36406,10 @@ meta_graphs {
         value: "\n\021fre_w_s1/Adam_1:0\022\026fre_w_s1/Adam_1/Assign\032\026fre_w_s1/Adam_1/read:0"
         value: "\n\022fre_bias_s1/Adam:0\022\027fre_bias_s1/Adam/Assign\032\027fre_bias_s1/Adam/read:0"
         value: "\n\024fre_bias_s1/Adam_1:0\022\031fre_bias_s1/Adam_1/Assign\032\031fre_bias_s1/Adam_1/read:0"
+        value: "\n\017fre_w_a1/Adam:0\022\024fre_w_a1/Adam/Assign\032\024fre_w_a1/Adam/read:0"
+        value: "\n\021fre_w_a1/Adam_1:0\022\026fre_w_a1/Adam_1/Assign\032\026fre_w_a1/Adam_1/read:0"
+        value: "\n\022fre_bias_a1/Adam:0\022\027fre_bias_a1/Adam/Assign\032\027fre_bias_a1/Adam/read:0"
+        value: "\n\024fre_bias_a1/Adam_1:0\022\031fre_bias_a1/Adam_1/Assign\032\031fre_bias_a1/Adam_1/read:0"
         value: "\n\rW_soft/Adam:0\022\022W_soft/Adam/Assign\032\022W_soft/Adam/read:0"
         value: "\n\017W_soft/Adam_1:0\022\024W_soft/Adam_1/Assign\032\024W_soft/Adam_1/read:0"
         value: "\n\020bias_soft/Adam:0\022\025bias_soft/Adam/Assign\032\025bias_soft/Adam/read:0"
@@ -30405,7 +36430,7 @@ meta_graphs {
               size: -1
             }
             dim {
-              size: 251
+              size: 600
             }
             dim {
               size: 4
