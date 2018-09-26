@@ -87,6 +87,9 @@ elif(sLen == 750):
 elif(sLen == 1500):
     head = 1000
     tail = 499
+elif(sLen == 600):
+    head = 200
+    tail = 399
 
 for i in range(len(sequences1)):
     os = zeros((len(sequences1[i]), 4))
