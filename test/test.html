@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>NGL @ arose.github.io</title>
+    <meta charset="utf-8">
+
+</head>
+
+<body>
+  <div id="viewport" style="width:600px; height:600px;"></div>
+    <!-- NGL -->
+    <script src="js/ngl.js"></script>
+
+    <script>
+       // Create NGL Stage object
+var stage = new NGL.Stage( "viewport", {backgroundColor:'white'} );
+
+// Handle window resizing
+window.addEventListener( "resize", function( event ){
+    stage.handleResize();
+}, false );
+
+
+var schemeId = NGL.ColormakerRegistry.addScheme(function (params) {
+  this.atomColor = function (atom) {
+    var name = atom.atomname.toUpperCase();
+    if ( name == "CO" || name == "Y") {
+      return 0xFF0000;  
+    } else if (name == "U") {
+      return 0xFF00FF;  
+    }else if (name == "AR" || name == "PU") {
+      return 0x0000FF;  
+    }else if (name == "GE") {
+      return 0x00FFFF;  
+    }else if (name == "P") {
+      return 0xFFFF00;  
+    }else if (name == "RE") {
+      return 0x00FF00;  
+    } else {
+      //console.log(atom.atomname);
+      return 0xFFFFFF;  
+    }
+  };
+});
+
+var white1 = NGL.ColormakerRegistry.addScheme(function (params) {
+  this.atomColor = function (atom) {
+    return 0xFFFFFF;  
+  };
+});
+
+stage.loadFile("4f3t.pdb").then(function (o) {
+  o.addRepresentation("ribbon", {
+    color: white1
+  })
+  o.autoView()
+})
+
+stage.loadFile("1111.pdb").then(function (o) {
+  o.addRepresentation("surface", {
+    color: schemeId,
+    opacity:  0.5
+  })
+  o.autoView()
+})
+
+    </script>
+
+
+</body>
+</html>
