@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+code{background:#F8F8FF; color: black; padding:6px}
+</style> 
+</head>
+<body>
+
+<div id="viewport" style="width:600px; height:600px;"></div>
+	<script src="ngl.js"></script>
+	<script>
+      
+function render(rad, opacity, scale, smooth, bg){
+  var stage = new NGL.Stage( "viewport", {backgroundColor:bg} );
+
+  var schemeId = NGL.ColormakerRegistry.addScheme(function (params) {
+    this.atomColor = function (atom) {
+      var name = atom.atomname.toUpperCase();
+      if ( name == "CO" || name == "Y") {
+        return 0xFF0000;  
+      } else if (name == "U") {
+        return 0xFF00FF;  
+      }else if (name == "AR" || name == "PU") {
+        return 0x0000FF;  
+      }else if (name == "GE") {
+        return 0x00FFFF;  
+      }else if (name == "P") {
+        return 0xFFFF00;  
+      }else if (name == "RE") {
+        return 0x00FF00;  
+      } else {
+        //console.log(atom.atomname);
+        return 0xFFFFFF;  
+      }
+    };
+  });
+
+  var white1 = NGL.ColormakerRegistry.addScheme(function (params) {
+    this.atomColor = function (atom) {
+      return 0xFFFFFF;  
+    };
+  });
+
+  stage.loadFile("1111.pdb").then(function (o) {
+    o.addRepresentation("ribbon", {
+      color: white1
+    })
+    o.autoView()
+  })
+
+  stage.loadFile("1111_strong_Bootstrap.pdb").then(function (o) {
+    o.addRepresentation("surface", {
+      probeRadius: rad,
+      smooth: smooth,
+      scaleFactor: scale,
+      flatShaded: false,
+      opacity: opacity,
+      lowResolution: false,
+      side: "front",
+      color: schemeId,
+    })
+    o.autoView()
+  })
+}
+function setParams(){
+  document.getElementById("viewport").innerHTML = "";
+  var rad = parseFloat(document.getElementById("radius").value);
+  var opacity = parseFloat(document.getElementById("opacity").value);
+  var scale = parseFloat(document.getElementById("scale").value);
+  var smooth = parseFloat(document.getElementById("smooth").value);
+  var bg = document.getElementById("color").value;
+  render(rad, opacity, scale, smooth, bg);
+}
+
+    </script>
+    Radius <input id="radius" value="0.1"> <br />
+    Opacity <input id="opacity" value="0.5"> <br />
+    Scale <input id="scale" value="2.0"> <br /> 
+    Smoothing <input id="smooth" value="2"> <br /> 
+    Background <select id="color"> 
+    <option value="black">black</option>
+    <option value="white">white</option>
+    <option value="red">red</option>
+    <option value="blue">blue</option>
+    <option value="green">green</option>
+    </select> <br />
+<button onclick="setParams()">Render</button>
+    </body>
+</html>
