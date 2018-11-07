@@ -111,8 +111,8 @@ RUN find /var/www -type d -exec chmod 775 {} +
 RUN find /var/www -type f -exec chmod 664 {} +
 
 RUN chmod 755 /var/www/html/PromID/PromID/main.sh
-RUN mkdir /var/www/html/PromID/PromID/files/
-RUN chmod 777 /var/www/html/PromID/PromID/files/
+RUN mkdir /var/www/html/PromID/PromID/files
+RUN chmod 777 /var/www/html/PromID/PromID/files
 
 EXPOSE 80
 
