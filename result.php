@@ -24,11 +24,12 @@
         $needle = "This is the final result!!";
         if(strrpos ( $data , $needle) !== false){
             $sdata = substr($data, strrpos ( $data , $needle) + strlen($needle) + 1);
-            file_put_contents("PromID/files/" . $query_name . ".res", $sdata);
+            file_put_contents("PromID/files/" . $query_name . ".res", strip_tags($sdata));
             $rows = str_getcsv($sdata, "\n"); 
             foreach($rows as &$Row) $Row = str_getcsv($Row, ","); 
-            $table1 = "<table class='table'><col span='1' class='wide'>";
-            $table1 .= "<tr><th>Sequence</th></tr>";  
+            $table1 = "<p style='text-align:right;'>Promoter elements: <span style='background-color:#80bfff;'>TSS </span>&nbsp;&nbsp;<span style='background-color:#ffd714;'>Initiator </span>&nbsp;&nbsp;<span style='background-color:red;'>TATA-box</span></p>";
+            $table1 .= "<table class='table'><col span='1' class='wide'>";
+            $table1 .= "<tr><th><h3>Results</h3></th></tr>";  
             foreach ($rows as $row) {
                 $table1 .= "<tr>";
                 for ($x = 0; $x < 1; $x++) {
