@@ -20,7 +20,9 @@
     }else{
         putenv("PATH=/usr/local/cuda/bin:/usr/local/cuda-8.0/bin:/usr/local/cuda-9.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:");
         putenv("LD_LIBRARY_PATH=/usr/local/cuda/lib64");
-        $data = shell_exec ( 'PromID/main.sh ' . "$new_file 2>&1" );
+        $dt = $_POST["dt"];
+        $md = $_POST["md"];
+        $data = shell_exec ( 'PromID/main.sh ' . "$new_file $dt $md 2>&1" );
         $needle = "This is the final result!!";
         if(strrpos ( $data , $needle) !== false){
             $sdata = substr($data, strrpos ( $data , $needle) + strlen($needle) + 1);
@@ -51,5 +53,5 @@
             echo $eout; 
         }
     }
-    #echo $data;
+    echo $data;
 ?>
