@@ -53,5 +53,5 @@
             echo $eout; 
         }
     }
-    echo $data;
+    #echo $data;
 ?>

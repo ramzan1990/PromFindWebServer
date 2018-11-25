@@ -224,7 +224,7 @@ with tf.Session(graph=new_graph) as sess:
             if(score > 0.1):  
                 #if tata+ model says no, this should as well
                 if(tatascore(sequences[i], tss)[0] >= -8.16):
-                    score = score - 0.1
+                    score = score - 0.3
                 if(sequences[i][tss][0] == 1 or sequences[i][tss][2] == 1):
                     score = score * fixw
                 if(sequences[i][tss-1][3] == 1 or sequences[i][tss-1][1] == 1):
