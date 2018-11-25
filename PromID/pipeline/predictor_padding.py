@@ -148,7 +148,7 @@ except:
 if(minDist < 40):
     minDist = 40
 
-fixw = 1.05
+fixw = 1.01
 
 sequences1 = []
 names = []
