@@ -134,7 +134,7 @@ inp = str(sys.argv[2])
 
 dt = 0.5
 try:
-    dt = float(sys.argv[6])
+    dt = float(sys.argv[6]) 
 except:
     pass
 dt = sorted((0.1, dt, 0.9))[1]
@@ -148,7 +148,7 @@ except:
 if(minDist < 40):
     minDist = 40
 
-fixw = 1.2
+fixw = 1.05
 
 sequences1 = []
 names = []
