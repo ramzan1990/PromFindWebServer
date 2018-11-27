@@ -29,7 +29,7 @@
             file_put_contents("PromID/files/" . $query_name . ".res", strip_tags($sdata));
             $rows = str_getcsv($sdata, "\n"); 
             foreach($rows as &$Row) $Row = str_getcsv($Row, ","); 
-            $table1 = "<p style='text-align:right;'>Promoter elements: <span style='background-color:#80bfff;'>TSS </span>&nbsp;&nbsp;<span style='background-color:#ffd714;'>Initiator </span>&nbsp;&nbsp;<span style='background-color:red;'>TATA-box</span></p>";
+            $table1 = "<p style='text-align:right;'>Promoter elements: <span style='background-color:#b3ccff;'>TSS </span>&nbsp;&nbsp;<span style='background-color:#ffe0b3;'>Initiator </span>&nbsp;&nbsp;<span style='background-color:#c2efc2;'>TCT </span>&nbsp;&nbsp;<span style='background-color:#ffb3b3;'>TATA-box</span>&nbsp;&nbsp;<span style='background-color:#b3ffff;'>CCAAT-box</span></p>";
             $table1 .= "<table class='table'><col span='1' class='wide'>";
             $table1 .= "<tr><th><h3>Results</h3></th></tr>";  
             foreach ($rows as $row) {

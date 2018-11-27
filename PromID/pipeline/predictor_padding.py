@@ -78,12 +78,35 @@ def tatascore(a, tss):
             maxI = 39 - p
     return maxScore, maxI
 
+def ccaatscore(a, tss):
+    ccat = [[-0.02,0,-1.46,-0.01],[-0.49,-0.01,-0.24,0],[-1.19,0,-1.26,-0.57],[0,-3.16,-0.4,-3.46],[-0.61,-1.44,0,-2.45],[-4.39,-3.99,-4.03,0],[-4.4,-4,-4.4,0],[0,-4.37,-4.37,-4.37],[0,-1.33,-1.69,-2.45],[-2.12,0,-2.26,-4.27],[-1.32,-2.84,-0.47,0],[0,-3.57,-0.81,-2.64]]
+    maxScore = -1000
+    maxI = -1000
+    for p in range(142):
+        seq = a[tss-200 + p:tss-200+12 + p]
+        score = 0
+        for i in range(len(ccat)):
+            for j in range(4):
+                score = score + ccat[i][j]*seq[i][j]
+        if(score>maxScore):
+            maxScore = score
+            maxI = 200 - p
+    return maxScore, maxI
+
 def inrscore(a):
     inr = [[-1.14,0,-0.75,-1.16], [-5.26,-5.26,-5.26,0], [0,-2.74,-5.21,-5.21], [-1.51,-0.29,0,-0.41], [-0.65,0,-4.56,-0.45], [-0.55,-0.36,-0.86,0], [-0.91,0,-0.38,-0.29], [-0.82,0,-0.65,-0.18]]
     score = 0
     for i in range(len(inr)):
         for j in range(4):
             score = score + inr[i][j]*a[i][j]
+    return score
+
+def tctscore(a):
+    tct = [[0,1.0,0,0.5], [0,1.0,0,0.5], [0,0,0,10.0], [0,1.0,0,0], [0,1.0,0,0], [0,1.0,0,0], [0,1.0,0,0.5], [0,0.5,0,0.5]]
+    score = 0
+    for i in range(len(tct)):
+        for j in range(4):
+            score = score + tct[i][j]*a[i][j]
     return score
 
 def pick(sequences, scores, inds, all_chosen, dt, mod):
@@ -93,23 +116,36 @@ def pick(sequences, scores, inds, all_chosen, dt, mod):
                 all_chosen[i].append(inds[k])
                 print("Position " + str(inds[k] + 1)+ mod + "   (Score " + str(sorted((0, e, 1))[1]) + ")")  
                 tss = head + inds[k] 
-                tscore, tbp  = tatascore(sequences[i], tss)              
-                ns = ""
+                cscore, cbp  = ccaatscore(sequences[i], tss)
+                tscore, tbp  = tatascore(sequences[i], tss)
+                seqp = ""
+                if(cscore >= -4.54):
+                    seqp = seqp + fastarev(sequences[i][tss-200:tss-cbp])
+                    seqp = seqp + "<span style='background-color:#b3ffff;'>"
+                    seqp = seqp + fastarev(sequences[i][tss-cbp:tss-cbp + 12])
+                    seqp = seqp + "</span>"
+                    seqp = seqp + fastarev(sequences[i][tss-cbp+12:tss-45])  
+                else:
+                    seqp = seqp + fastarev(sequences[i][tss-200:tss-45])
+            
                 if(tscore >= -8.16):
-                    seqp = fastarev(sequences[i][tss-200:tss-tbp])
-                    seqp = seqp + "<span style='background-color:red;'>"
+                    seqp = seqp + fastarev(sequences[i][tss-45:tss-tbp])
+                    seqp = seqp + "<span style='background-color:#ffb3b3;'>"
                     seqp = seqp + fastarev(sequences[i][tss-tbp:tss-tbp + 15])
                     seqp = seqp + "</span>"
                     seqp = seqp + fastarev(sequences[i][tss-tbp+15:tss-2])  
                 else:
-                    seqp = fastarev(sequences[i][tss-200:tss-2])
+                    seqp = seqp + fastarev(sequences[i][tss-45:tss-2])
                 
                 ns = ""                  
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                    seqp = seqp + "<span style='background-color:#ffd714;'>"
+                    seqp = seqp + "<span style='background-color:#ffe0b3;'>"
+                    ns = "</span>"
+                elif(tctscore(sequences[i][tss-2:tss+6]) >= 13.5):
+                    seqp = seqp + "<span style='background-color:#c2efc2;'>"
                     ns = "</span>"
                 seqp = seqp + fastarev(sequences[i][tss-2:tss])  
-                seqp = seqp + "<b><span style='background-color:#80bfff;'>"
+                seqp = seqp + "<b><span style='background-color:#b3ccff;'>"
                 seqp = seqp + fastarev(sequences[i][tss:tss+1])  
                 seqp = seqp + "</span></b>"
                 seqp = seqp + fastarev(sequences[i][tss+1:tss+6])
@@ -145,8 +181,8 @@ try:
 except:
     pass
 
-if(minDist < 40):
-    minDist = 40
+if(minDist < 600):
+    minDist = 600
 
 fixw = 1.01
 
@@ -224,13 +260,11 @@ with tf.Session(graph=new_graph) as sess:
             if(score > 0.1):  
                 #if tata+ model says no, this should as well
                 if(tatascore(sequences[i], tss)[0] >= -8.16):
-                    score = score - 0.3
-                if(sequences[i][tss][0] == 1 or sequences[i][tss][2] == 1):
-                    score = score * fixw
-                if(sequences[i][tss-1][3] == 1 or sequences[i][tss-1][1] == 1):
-                    score = score * fixw
+                    score = score - 0.4
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                    score = score + 0.05
+                    score = score + 0.06
+                elif(tctscore(sequences[i][tss-2:tss+6]) >= 13.5):
+                    score = score + 0.02
             scores.append(score)
             prefix = ", "
         scores= np.array(scores)        
@@ -262,12 +296,15 @@ with tf.Session(graph=new_graph) as sess:
             if(score > 0.1):    
                 if(tatascore(sequences[i], tss)[0] >= -8.16):
                     score = score + 0.1
-                if(sequences[i][tss][0] == 1 or sequences[i][tss][2] == 1):
-                    score = score * fixw
-                if(sequences[i][tss-1][3] == 1 or sequences[i][tss-1][1] == 1):
-                    score = score * fixw
+                    #double dip
+                    if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
+                        score = score + 0.06
+                    elif(tctscore(sequences[i][tss-2:tss+6]) >= 13.5):
+                        score = score + 0.02
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                    score = score + 0.05   
+                    score = score + 0.06
+                elif(tctscore(sequences[i][tss-2:tss+6]) >= 13.5):
+                    score = score + 0.02
             scores.append(score)
         scores= np.array(scores)        
         all_scores_tata.append(scores)
