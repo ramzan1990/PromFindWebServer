@@ -102,7 +102,7 @@ def inrscore(a):
     return score
 
 def tctscore(a):
-    tct = [[0,1.0,0,0.5], [0,1.0,0,0.5], [0,0,0,10.0], [0,1.0,0,0], [0,1.0,0,0], [0,1.0,0,0], [0,1.0,0,0.5], [0,0.5,0,0.5]]
+    tct = [[0.08,0.35,0.30,0.27],[0.08,0.32,0.17,0.43],[0.00,0.00,0.00,11.00],[0.07,0.62,0.08,0.24],[0.09,0.32,0.16,0.43],[0.11,0.43,0.15,0.30],[0.09,0.33,0.22,0.36],[0.10,0.28,0.24,0.38]]
     score = 0
     for i in range(len(tct)):
         for j in range(4):
@@ -114,7 +114,7 @@ def pick(sequences, scores, inds, all_chosen, dt, mod):
         if(e>dt):
             if(not close(inds[k], all_chosen[i])):
                 all_chosen[i].append(inds[k])
-                print("Position " + str(inds[k] + 1)+ mod + "   (Score " + str(sorted((0, e, 1))[1]) + ")")  
+                print("Position " + str(inds[k] + 1) + " " + mod + " Score " + str(round(sorted((0, e, 1))[1], 2)))
                 tss = head + inds[k] 
                 cscore, cbp  = ccaatscore(sequences[i], tss)
                 tscore, tbp  = tatascore(sequences[i], tss)
@@ -141,7 +141,7 @@ def pick(sequences, scores, inds, all_chosen, dt, mod):
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
                     seqp = seqp + "<span style='background-color:#ffe0b3;'>"
                     ns = "</span>"
-                elif(tctscore(sequences[i][tss-2:tss+6]) >= 13.5):
+                elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
                     seqp = seqp + "<span style='background-color:#c2efc2;'>"
                     ns = "</span>"
                 seqp = seqp + fastarev(sequences[i][tss-2:tss])  
@@ -243,7 +243,7 @@ with tf.Session(graph=new_graph) as sess:
     saver.restore(sess, sys.argv[1]+"/variables/variables")
     input_x = tf.get_default_graph().get_tensor_by_name("input_prom:0")
     y = tf.get_default_graph().get_tensor_by_name("output_prom:0")
-    kr1 = tf.get_default_graph().get_tensor_by_name("Placeholder_1:0")
+    kr1 = tf.get_default_graph().get_tensor_by_name("kr:0")
     #kr1 = tf.get_default_graph().get_tensor_by_name("kr1:0")
     #kr2 = tf.get_default_graph().get_tensor_by_name("kr2:0")
     for i in range(len(sequences)):
@@ -262,9 +262,17 @@ with tf.Session(graph=new_graph) as sess:
                 if(tatascore(sequences[i], tss)[0] >= -8.16):
                     score = score - 0.4
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                    score = score + 0.06
-                elif(tctscore(sequences[i][tss-2:tss+6]) >= 13.5):
-                    score = score + 0.02
+                    score = score + 0.04
+                elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
+                    score = score + 0.01
+                elif(sequences[i][tss][2] == 1):
+                    score = score + 0.01
+                elif(sequences[i][tss][0] == 1):
+                    score = score + 0.01
+                elif(sequences[i][tss][3] == 1):
+                    score = score - 0.3
+                elif(sequences[i][tss][1] == 1):
+                    score = score - 0.3
             scores.append(score)
             prefix = ", "
         scores= np.array(scores)        
@@ -298,13 +306,21 @@ with tf.Session(graph=new_graph) as sess:
                     score = score + 0.1
                     #double dip
                     if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                        score = score + 0.06
-                    elif(tctscore(sequences[i][tss-2:tss+6]) >= 13.5):
+                        score = score + 0.1
+                    elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
                         score = score + 0.02
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                    score = score + 0.06
-                elif(tctscore(sequences[i][tss-2:tss+6]) >= 13.5):
-                    score = score + 0.02
+                    score = score + 0.04
+                elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
+                    score = score + 0.01
+                elif(sequences[i][tss][2] == 1):
+                    score = score + 0.01
+                elif(sequences[i][tss][0] == 1):
+                    score = score + 0.01
+                elif(sequences[i][tss][3] == 1):
+                    score = score - 0.3
+                elif(sequences[i][tss][1] == 1):
+                    score = score - 0.3
             scores.append(score)
         scores= np.array(scores)        
         all_scores_tata.append(scores)
