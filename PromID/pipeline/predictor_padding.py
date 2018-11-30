@@ -18,7 +18,7 @@ def brun(sess, y, a):
     number_of_full_batch = int(math.ceil(float(len(a))/batch_size))
     for i in range(number_of_full_batch):
         preds += list(sess.run(y,
-                               feed_dict={input_x: a[i*batch_size:(i+1)*batch_size], kr1: 1.0}))
+                               feed_dict={input_x: a[i*batch_size:(i+1)*batch_size], kr1: 1.0, kr2: 1.0}))
     return preds
 
 def fastarev(a):
@@ -58,10 +58,11 @@ def randomSeq(s):
     return r
 
 def close(s, a):
+    fmd = float('inf')
     for v in a:
-        if(abs(s - v) < minDist):
-            return True
-    return False
+        if(abs(s - v) < fmd):
+            fmd = abs(s - v)
+    return fmd
 
 def tatascore(a, tss):
     tata = [[-1.02,-1.68,0,-0.28], [-3.05,0,-2.74,-2.06], [0,-2.28,-4.28,-5.22], [-4.61,0,-4.61,-3.49], [0,-2.34,-3.77,-5.17], [0,-0.52,-4.73,-4.63], [0,-3.65,-2.65,-4.12], [0,-0.37,-1.5,-3.74], [-0.01,-1.4,0,-1.13], [-0.94,-0.97,0,-0.05], [-0.54,-1.4,-0.09,0], [-0.48,-0.82,0,-0.05], [-0.48,-0.66,0,-0.11], [-0.74,-0.54,0,-0.28], [-0.62,-0.61,0,-0.4]]
@@ -111,8 +112,12 @@ def tctscore(a):
 
 def pick(sequences, scores, inds, all_chosen, dt, mod):
     for k, e in reversed(list(enumerate(scores))):
-        if(e>dt):
-            if(not close(inds[k], all_chosen[i])):
+        if(e>=dt):
+            fmd = close(inds[k], all_chosen[i])
+            scaling = 1.0
+            if(fmd < minDist):
+                scaling = fmd / minDist
+            if(e*scaling >= dt):
                 all_chosen[i].append(inds[k])
                 print("Position " + str(inds[k] + 1) + " " + mod + " Score " + str(round(sorted((0, e, 1))[1], 2)))
                 tss = head + inds[k] 
@@ -168,14 +173,14 @@ step = int(sys.argv[4])
 output = str(sys.argv[5])
 inp = str(sys.argv[2])
 
-dt = 0.5
+dt = 0.4
 try:
     dt = float(sys.argv[6]) 
 except:
     pass
 dt = sorted((0.1, dt, 0.9))[1]
 
-minDist = 1000
+minDist = 5000
 try:
     minDist = int(sys.argv[7])
 except:
@@ -243,9 +248,8 @@ with tf.Session(graph=new_graph) as sess:
     saver.restore(sess, sys.argv[1]+"/variables/variables")
     input_x = tf.get_default_graph().get_tensor_by_name("input_prom:0")
     y = tf.get_default_graph().get_tensor_by_name("output_prom:0")
-    kr1 = tf.get_default_graph().get_tensor_by_name("kr:0")
-    #kr1 = tf.get_default_graph().get_tensor_by_name("kr1:0")
-    #kr2 = tf.get_default_graph().get_tensor_by_name("kr2:0")
+    kr1 = tf.get_default_graph().get_tensor_by_name("kr1:0")
+    kr2 = tf.get_default_graph().get_tensor_by_name("kr2:0")
     for i in range(len(sequences)):
         total = int(math.ceil((len(sequences[i]) - sLen) / step) + 1)
         topred = np.zeros(shape=(total, sLen, 4))
@@ -262,7 +266,7 @@ with tf.Session(graph=new_graph) as sess:
                 if(tatascore(sequences[i], tss)[0] >= -8.16):
                     score = score - 0.4
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                    score = score + 0.04
+                    score = score + 0.02
                 elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
                     score = score + 0.01
                 elif(sequences[i][tss][2] == 1):
@@ -287,9 +291,8 @@ with tf.Session(graph=new_graph) as sess:
     saver.restore(sess, "PromID/model_2"+"/variables/variables")
     input_x = tf.get_default_graph().get_tensor_by_name("input_prom:0")
     y = tf.get_default_graph().get_tensor_by_name("output_prom:0")
-    kr1 = tf.get_default_graph().get_tensor_by_name("Placeholder_1:0")
-    #kr1 = tf.get_default_graph().get_tensor_by_name("kr1:0")
-    #kr2 = tf.get_default_graph().get_tensor_by_name("kr2:0")
+    kr1 = tf.get_default_graph().get_tensor_by_name("kr1:0")
+    kr2 = tf.get_default_graph().get_tensor_by_name("kr2:0")
     for i in range(len(sequences)):
         total = int(math.ceil((len(sequences[i]) - sLen) / step) + 1)
         topred = np.zeros(shape=(total, sLen, 4))
@@ -303,14 +306,14 @@ with tf.Session(graph=new_graph) as sess:
             
             if(score > 0.1):    
                 if(tatascore(sequences[i], tss)[0] >= -8.16):
-                    score = score + 0.1
+                    score = score + 0.04
                     #double dip
                     if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                        score = score + 0.1
-                    elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
                         score = score + 0.02
+                    elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
+                        score = score + 0.01
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                    score = score + 0.04
+                    score = score + 0.02
                 elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
                     score = score + 0.01
                 elif(sequences[i][tss][2] == 1):

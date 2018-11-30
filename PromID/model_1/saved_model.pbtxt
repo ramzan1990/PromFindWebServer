@@ -2295,7 +2295,7 @@ meta_graphs {
       }
     }
     node {
-      name: "kr"
+      name: "kr1"
       op: "Placeholder"
       attr {
         key: "_output_shapes"
@@ -2318,6 +2318,346 @@ meta_graphs {
         value {
           shape {
             unknown_rank: true
+          }
+        }
+      }
+    }
+    node {
+      name: "kr2"
+      op: "Placeholder"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "shape"
+        value {
+          shape {
+            unknown_rank: true
+          }
+        }
+      }
+    }
+    node {
+      name: "dropout/Shape"
+      op: "Shape"
+      input: "input_prom"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: 3
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "out_type"
+        value {
+          type: DT_INT32
+        }
+      }
+    }
+    node {
+      name: "dropout/random_uniform/min"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+            }
+            float_val: 0.0
+          }
+        }
+      }
+    }
+    node {
+      name: "dropout/random_uniform/max"
+      op: "Const"
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "value"
+        value {
+          tensor {
+            dtype: DT_FLOAT
+            tensor_shape {
+            }
+            float_val: 1.0
+          }
+        }
+      }
+    }
+    node {
+      name: "dropout/random_uniform/RandomUniform"
+      op: "RandomUniform"
+      input: "dropout/Shape"
+      attr {
+        key: "T"
+        value {
+          type: DT_INT32
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+      attr {
+        key: "dtype"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "seed"
+        value {
+          i: 0
+        }
+      }
+      attr {
+        key: "seed2"
+        value {
+          i: 0
+        }
+      }
+    }
+    node {
+      name: "dropout/random_uniform/sub"
+      op: "Sub"
+      input: "dropout/random_uniform/max"
+      input: "dropout/random_uniform/min"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "dropout/random_uniform/mul"
+      op: "Mul"
+      input: "dropout/random_uniform/RandomUniform"
+      input: "dropout/random_uniform/sub"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "dropout/random_uniform"
+      op: "Add"
+      input: "dropout/random_uniform/mul"
+      input: "dropout/random_uniform/min"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 4
+              }
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "dropout/add"
+      op: "Add"
+      input: "kr1"
+      input: "dropout/random_uniform"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "dropout/Floor"
+      op: "Floor"
+      input: "dropout/add"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "dropout/div"
+      op: "RealDiv"
+      input: "input_prom"
+      input: "kr1"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              unknown_rank: true
+            }
+          }
+        }
+      }
+    }
+    node {
+      name: "dropout/mul"
+      op: "Mul"
+      input: "dropout/div"
+      input: "dropout/Floor"
+      attr {
+        key: "T"
+        value {
+          type: DT_FLOAT
+        }
+      }
+      attr {
+        key: "_output_shapes"
+        value {
+          list {
+            shape {
+              dim {
+                size: -1
+              }
+              dim {
+                size: 600
+              }
+              dim {
+                size: 4
+              }
+            }
           }
         }
       }
@@ -3175,7 +3515,7 @@ meta_graphs {
     node {
       name: "f1/conv1d/ExpandDims"
       op: "ExpandDims"
-      input: "input_prom"
+      input: "dropout/mul"
       input: "f1/conv1d/ExpandDims/dim"
       attr {
         key: "T"
@@ -4689,7 +5029,7 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/Shape"
+      name: "dropout_1/Shape"
       op: "Shape"
       input: "f2/Maximum"
       attr {
@@ -4718,7 +5058,7 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/random_uniform/min"
+      name: "dropout_1/random_uniform/min"
       op: "Const"
       attr {
         key: "_output_shapes"
@@ -4748,7 +5088,7 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/random_uniform/max"
+      name: "dropout_1/random_uniform/max"
       op: "Const"
       attr {
         key: "_output_shapes"
@@ -4778,9 +5118,9 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/random_uniform/RandomUniform"
+      name: "dropout_1/random_uniform/RandomUniform"
       op: "RandomUniform"
-      input: "dropout/Shape"
+      input: "dropout_1/Shape"
       attr {
         key: "T"
         value {
@@ -4825,10 +5165,10 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/random_uniform/sub"
+      name: "dropout_1/random_uniform/sub"
       op: "Sub"
-      input: "dropout/random_uniform/max"
-      input: "dropout/random_uniform/min"
+      input: "dropout_1/random_uniform/max"
+      input: "dropout_1/random_uniform/min"
       attr {
         key: "T"
         value {
@@ -4846,10 +5186,10 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/random_uniform/mul"
+      name: "dropout_1/random_uniform/mul"
       op: "Mul"
-      input: "dropout/random_uniform/RandomUniform"
-      input: "dropout/random_uniform/sub"
+      input: "dropout_1/random_uniform/RandomUniform"
+      input: "dropout_1/random_uniform/sub"
       attr {
         key: "T"
         value {
@@ -4876,10 +5216,10 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/random_uniform"
+      name: "dropout_1/random_uniform"
       op: "Add"
-      input: "dropout/random_uniform/mul"
-      input: "dropout/random_uniform/min"
+      input: "dropout_1/random_uniform/mul"
+      input: "dropout_1/random_uniform/min"
       attr {
         key: "T"
         value {
@@ -4906,10 +5246,10 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/add"
+      name: "dropout_1/add"
       op: "Add"
-      input: "kr"
-      input: "dropout/random_uniform"
+      input: "kr2"
+      input: "dropout_1/random_uniform"
       attr {
         key: "T"
         value {
@@ -4928,9 +5268,9 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/Floor"
+      name: "dropout_1/Floor"
       op: "Floor"
-      input: "dropout/add"
+      input: "dropout_1/add"
       attr {
         key: "T"
         value {
@@ -4949,10 +5289,10 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/div"
+      name: "dropout_1/div"
       op: "RealDiv"
       input: "f2/Maximum"
-      input: "kr"
+      input: "kr2"
       attr {
         key: "T"
         value {
@@ -4971,10 +5311,10 @@ meta_graphs {
       }
     }
     node {
-      name: "dropout/mul"
+      name: "dropout_1/mul"
       op: "Mul"
-      input: "dropout/div"
-      input: "dropout/Floor"
+      input: "dropout_1/div"
+      input: "dropout_1/Floor"
       attr {
         key: "T"
         value {
@@ -5003,7 +5343,7 @@ meta_graphs {
     node {
       name: "Flatten/Shape"
       op: "Shape"
-      input: "dropout/mul"
+      input: "dropout_1/mul"
       attr {
         key: "T"
         value {
@@ -5434,7 +5774,7 @@ meta_graphs {
     node {
       name: "Flatten/Reshape"
       op: "Reshape"
-      input: "dropout/mul"
+      input: "dropout_1/mul"
       input: "Flatten/concat"
       attr {
         key: "T"
@@ -12658,7 +12998,7 @@ meta_graphs {
     node {
       name: "gradients/Flatten/Reshape_grad/Shape"
       op: "Shape"
-      input: "dropout/mul"
+      input: "dropout_1/mul"
       attr {
         key: "T"
         value {
@@ -12786,9 +13126,9 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/Shape"
+      name: "gradients/dropout_1/mul_grad/Shape"
       op: "Shape"
-      input: "dropout/div"
+      input: "dropout_1/div"
       attr {
         key: "T"
         value {
@@ -12815,9 +13155,9 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/Shape_1"
+      name: "gradients/dropout_1/mul_grad/Shape_1"
       op: "Shape"
-      input: "dropout/Floor"
+      input: "dropout_1/Floor"
       attr {
         key: "T"
         value {
@@ -12844,10 +13184,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/BroadcastGradientArgs"
+      name: "gradients/dropout_1/mul_grad/BroadcastGradientArgs"
       op: "BroadcastGradientArgs"
-      input: "gradients/dropout/mul_grad/Shape"
-      input: "gradients/dropout/mul_grad/Shape_1"
+      input: "gradients/dropout_1/mul_grad/Shape"
+      input: "gradients/dropout_1/mul_grad/Shape_1"
       attr {
         key: "T"
         value {
@@ -12873,10 +13213,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/mul"
+      name: "gradients/dropout_1/mul_grad/mul"
       op: "Mul"
       input: "gradients/Flatten/Reshape_grad/Reshape"
-      input: "dropout/Floor"
+      input: "dropout_1/Floor"
       attr {
         key: "T"
         value {
@@ -12895,10 +13235,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/Sum"
+      name: "gradients/dropout_1/mul_grad/Sum"
       op: "Sum"
-      input: "gradients/dropout/mul_grad/mul"
-      input: "gradients/dropout/mul_grad/BroadcastGradientArgs"
+      input: "gradients/dropout_1/mul_grad/mul"
+      input: "gradients/dropout_1/mul_grad/BroadcastGradientArgs"
       attr {
         key: "T"
         value {
@@ -12929,10 +13269,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/Reshape"
+      name: "gradients/dropout_1/mul_grad/Reshape"
       op: "Reshape"
-      input: "gradients/dropout/mul_grad/Sum"
-      input: "gradients/dropout/mul_grad/Shape"
+      input: "gradients/dropout_1/mul_grad/Sum"
+      input: "gradients/dropout_1/mul_grad/Shape"
       attr {
         key: "T"
         value {
@@ -12957,9 +13297,9 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/mul_1"
+      name: "gradients/dropout_1/mul_grad/mul_1"
       op: "Mul"
-      input: "dropout/div"
+      input: "dropout_1/div"
       input: "gradients/Flatten/Reshape_grad/Reshape"
       attr {
         key: "T"
@@ -12979,10 +13319,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/Sum_1"
+      name: "gradients/dropout_1/mul_grad/Sum_1"
       op: "Sum"
-      input: "gradients/dropout/mul_grad/mul_1"
-      input: "gradients/dropout/mul_grad/BroadcastGradientArgs:1"
+      input: "gradients/dropout_1/mul_grad/mul_1"
+      input: "gradients/dropout_1/mul_grad/BroadcastGradientArgs:1"
       attr {
         key: "T"
         value {
@@ -13013,10 +13353,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/Reshape_1"
+      name: "gradients/dropout_1/mul_grad/Reshape_1"
       op: "Reshape"
-      input: "gradients/dropout/mul_grad/Sum_1"
-      input: "gradients/dropout/mul_grad/Shape_1"
+      input: "gradients/dropout_1/mul_grad/Sum_1"
+      input: "gradients/dropout_1/mul_grad/Shape_1"
       attr {
         key: "T"
         value {
@@ -13041,16 +13381,16 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/tuple/group_deps"
+      name: "gradients/dropout_1/mul_grad/tuple/group_deps"
       op: "NoOp"
-      input: "^gradients/dropout/mul_grad/Reshape"
-      input: "^gradients/dropout/mul_grad/Reshape_1"
+      input: "^gradients/dropout_1/mul_grad/Reshape"
+      input: "^gradients/dropout_1/mul_grad/Reshape_1"
     }
     node {
-      name: "gradients/dropout/mul_grad/tuple/control_dependency"
+      name: "gradients/dropout_1/mul_grad/tuple/control_dependency"
       op: "Identity"
-      input: "gradients/dropout/mul_grad/Reshape"
-      input: "^gradients/dropout/mul_grad/tuple/group_deps"
+      input: "gradients/dropout_1/mul_grad/Reshape"
+      input: "^gradients/dropout_1/mul_grad/tuple/group_deps"
       attr {
         key: "T"
         value {
@@ -13061,7 +13401,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@gradients/dropout/mul_grad/Reshape"
+            s: "loc:@gradients/dropout_1/mul_grad/Reshape"
           }
         }
       }
@@ -13077,10 +13417,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/mul_grad/tuple/control_dependency_1"
+      name: "gradients/dropout_1/mul_grad/tuple/control_dependency_1"
       op: "Identity"
-      input: "gradients/dropout/mul_grad/Reshape_1"
-      input: "^gradients/dropout/mul_grad/tuple/group_deps"
+      input: "gradients/dropout_1/mul_grad/Reshape_1"
+      input: "^gradients/dropout_1/mul_grad/tuple/group_deps"
       attr {
         key: "T"
         value {
@@ -13091,7 +13431,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@gradients/dropout/mul_grad/Reshape_1"
+            s: "loc:@gradients/dropout_1/mul_grad/Reshape_1"
           }
         }
       }
@@ -13175,7 +13515,7 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/Shape"
+      name: "gradients/dropout_1/div_grad/Shape"
       op: "Shape"
       input: "f2/Maximum"
       attr {
@@ -13204,9 +13544,9 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/Shape_1"
+      name: "gradients/dropout_1/div_grad/Shape_1"
       op: "Shape"
-      input: "kr"
+      input: "kr2"
       attr {
         key: "T"
         value {
@@ -13233,10 +13573,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/BroadcastGradientArgs"
+      name: "gradients/dropout_1/div_grad/BroadcastGradientArgs"
       op: "BroadcastGradientArgs"
-      input: "gradients/dropout/div_grad/Shape"
-      input: "gradients/dropout/div_grad/Shape_1"
+      input: "gradients/dropout_1/div_grad/Shape"
+      input: "gradients/dropout_1/div_grad/Shape_1"
       attr {
         key: "T"
         value {
@@ -13262,10 +13602,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/RealDiv"
+      name: "gradients/dropout_1/div_grad/RealDiv"
       op: "RealDiv"
-      input: "gradients/dropout/mul_grad/tuple/control_dependency"
-      input: "kr"
+      input: "gradients/dropout_1/mul_grad/tuple/control_dependency"
+      input: "kr2"
       attr {
         key: "T"
         value {
@@ -13284,10 +13624,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/Sum"
+      name: "gradients/dropout_1/div_grad/Sum"
       op: "Sum"
-      input: "gradients/dropout/div_grad/RealDiv"
-      input: "gradients/dropout/div_grad/BroadcastGradientArgs"
+      input: "gradients/dropout_1/div_grad/RealDiv"
+      input: "gradients/dropout_1/div_grad/BroadcastGradientArgs"
       attr {
         key: "T"
         value {
@@ -13318,10 +13658,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/Reshape"
+      name: "gradients/dropout_1/div_grad/Reshape"
       op: "Reshape"
-      input: "gradients/dropout/div_grad/Sum"
-      input: "gradients/dropout/div_grad/Shape"
+      input: "gradients/dropout_1/div_grad/Sum"
+      input: "gradients/dropout_1/div_grad/Shape"
       attr {
         key: "T"
         value {
@@ -13354,7 +13694,7 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/Neg"
+      name: "gradients/dropout_1/div_grad/Neg"
       op: "Neg"
       input: "f2/Maximum"
       attr {
@@ -13383,10 +13723,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/RealDiv_1"
+      name: "gradients/dropout_1/div_grad/RealDiv_1"
       op: "RealDiv"
-      input: "gradients/dropout/div_grad/Neg"
-      input: "kr"
+      input: "gradients/dropout_1/div_grad/Neg"
+      input: "kr2"
       attr {
         key: "T"
         value {
@@ -13405,10 +13745,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/RealDiv_2"
+      name: "gradients/dropout_1/div_grad/RealDiv_2"
       op: "RealDiv"
-      input: "gradients/dropout/div_grad/RealDiv_1"
-      input: "kr"
+      input: "gradients/dropout_1/div_grad/RealDiv_1"
+      input: "kr2"
       attr {
         key: "T"
         value {
@@ -13427,10 +13767,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/mul"
+      name: "gradients/dropout_1/div_grad/mul"
       op: "Mul"
-      input: "gradients/dropout/mul_grad/tuple/control_dependency"
-      input: "gradients/dropout/div_grad/RealDiv_2"
+      input: "gradients/dropout_1/mul_grad/tuple/control_dependency"
+      input: "gradients/dropout_1/div_grad/RealDiv_2"
       attr {
         key: "T"
         value {
@@ -13449,10 +13789,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/Sum_1"
+      name: "gradients/dropout_1/div_grad/Sum_1"
       op: "Sum"
-      input: "gradients/dropout/div_grad/mul"
-      input: "gradients/dropout/div_grad/BroadcastGradientArgs:1"
+      input: "gradients/dropout_1/div_grad/mul"
+      input: "gradients/dropout_1/div_grad/BroadcastGradientArgs:1"
       attr {
         key: "T"
         value {
@@ -13483,10 +13823,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/Reshape_1"
+      name: "gradients/dropout_1/div_grad/Reshape_1"
       op: "Reshape"
-      input: "gradients/dropout/div_grad/Sum_1"
-      input: "gradients/dropout/div_grad/Shape_1"
+      input: "gradients/dropout_1/div_grad/Sum_1"
+      input: "gradients/dropout_1/div_grad/Shape_1"
       attr {
         key: "T"
         value {
@@ -13511,16 +13851,16 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/tuple/group_deps"
+      name: "gradients/dropout_1/div_grad/tuple/group_deps"
       op: "NoOp"
-      input: "^gradients/dropout/div_grad/Reshape"
-      input: "^gradients/dropout/div_grad/Reshape_1"
+      input: "^gradients/dropout_1/div_grad/Reshape"
+      input: "^gradients/dropout_1/div_grad/Reshape_1"
     }
     node {
-      name: "gradients/dropout/div_grad/tuple/control_dependency"
+      name: "gradients/dropout_1/div_grad/tuple/control_dependency"
       op: "Identity"
-      input: "gradients/dropout/div_grad/Reshape"
-      input: "^gradients/dropout/div_grad/tuple/group_deps"
+      input: "gradients/dropout_1/div_grad/Reshape"
+      input: "^gradients/dropout_1/div_grad/tuple/group_deps"
       attr {
         key: "T"
         value {
@@ -13531,7 +13871,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@gradients/dropout/div_grad/Reshape"
+            s: "loc:@gradients/dropout_1/div_grad/Reshape"
           }
         }
       }
@@ -13555,10 +13895,10 @@ meta_graphs {
       }
     }
     node {
-      name: "gradients/dropout/div_grad/tuple/control_dependency_1"
+      name: "gradients/dropout_1/div_grad/tuple/control_dependency_1"
       op: "Identity"
-      input: "gradients/dropout/div_grad/Reshape_1"
-      input: "^gradients/dropout/div_grad/tuple/group_deps"
+      input: "gradients/dropout_1/div_grad/Reshape_1"
+      input: "^gradients/dropout_1/div_grad/tuple/group_deps"
       attr {
         key: "T"
         value {
@@ -13569,7 +13909,7 @@ meta_graphs {
         key: "_class"
         value {
           list {
-            s: "loc:@gradients/dropout/div_grad/Reshape_1"
+            s: "loc:@gradients/dropout_1/div_grad/Reshape_1"
           }
         }
       }
@@ -14891,7 +15231,7 @@ meta_graphs {
     node {
       name: "gradients/f2/Maximum_grad/Shape_2"
       op: "Shape"
-      input: "gradients/dropout/div_grad/tuple/control_dependency"
+      input: "gradients/dropout_1/div_grad/tuple/control_dependency"
       attr {
         key: "T"
         value {
@@ -15040,7 +15380,7 @@ meta_graphs {
       name: "gradients/f2/Maximum_grad/Select"
       op: "Select"
       input: "gradients/f2/Maximum_grad/GreaterEqual"
-      input: "gradients/dropout/div_grad/tuple/control_dependency"
+      input: "gradients/dropout_1/div_grad/tuple/control_dependency"
       input: "gradients/f2/Maximum_grad/zeros"
       attr {
         key: "T"
@@ -15094,7 +15434,7 @@ meta_graphs {
       name: "gradients/f2/Maximum_grad/Select_1"
       op: "Select"
       input: "gradients/f2/Maximum_grad/LogicalNot"
-      input: "gradients/dropout/div_grad/tuple/control_dependency"
+      input: "gradients/dropout_1/div_grad/tuple/control_dependency"
       input: "gradients/f2/Maximum_grad/zeros"
       attr {
         key: "T"
@@ -26500,7 +26840,7 @@ meta_graphs {
             dtype: DT_STRING
             tensor_shape {
             }
-            string_val: "_temp_56d1e68ce2cc499793815afe296cddda/part"
+            string_val: "_temp_45fb58ce7d224ab097cb13c595526acc/part"
           }
         }
       }
