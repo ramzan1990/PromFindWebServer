@@ -263,12 +263,12 @@ with tf.Session(graph=new_graph) as sess:
             tss = head + j
             if(score > 0.1):  
                 #if tata+ model says no, this should as well
-                if(tatascore(sequences[i], tss)[0] >= -8.16):
-                    score = score - 0.4
+                #if(tatascore(sequences[i], tss)[0] >= -8.16):
+                #    score = score - 0.4
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
                     score = score + 0.02
                 elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
-                    score = score + 0.01
+                    score = score + 0.005
                 elif(sequences[i][tss][2] == 1):
                     score = score + 0.01
                 elif(sequences[i][tss][0] == 1):
@@ -306,16 +306,11 @@ with tf.Session(graph=new_graph) as sess:
             
             if(score > 0.1):    
                 if(tatascore(sequences[i], tss)[0] >= -8.16):
-                    score = score + 0.04
-                    #double dip
-                    if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
-                        score = score + 0.02
-                    elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
-                        score = score + 0.01
+                    score = score + 0.02
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
                     score = score + 0.02
                 elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
-                    score = score + 0.01
+                    score = score + 0.005
                 elif(sequences[i][tss][2] == 1):
                     score = score + 0.01
                 elif(sequences[i][tss][0] == 1):
@@ -330,10 +325,14 @@ with tf.Session(graph=new_graph) as sess:
 
 for i in range(len(sequences)):   
     print("<b>" + names[i] + "</b>")
+
     all_chosen.append([])
-    inds = np.argsort(all_scores_tata[i])
-    scores = all_scores_tata[i][inds]
-    pick(sequences, scores, inds, all_chosen, dt + 0.1, "+")
+
     inds = np.argsort(all_scores_ntata[i])
     scores = all_scores_ntata[i][inds]
     pick(sequences, scores, inds, all_chosen, dt, "-")
+
+    inds = np.argsort(all_scores_tata[i])
+    scores = all_scores_tata[i][inds]
+    pick(sequences, scores, inds, all_chosen, dt, "+")
+
