@@ -119,7 +119,7 @@ def pick(sequences, scores, inds, all_chosen, dt, mod):
                 scaling = fmd / minDist
             if(e*scaling >= dt):
                 all_chosen[i].append(inds[k])
-                print("Position " + str(inds[k] + 1) + " " + mod + " Score " + str(round(sorted((0, e, 1))[1], 2)))
+                print("Position " + str(inds[k] + 1)  + " Score " + str(round(sorted((0, e, 1))[1], 2)))
                 tss = head + inds[k] 
                 cscore, cbp  = ccaatscore(sequences[i], tss)
                 tscore, tbp  = tatascore(sequences[i], tss)
