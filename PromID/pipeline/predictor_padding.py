@@ -308,7 +308,7 @@ with tf.Session(graph=new_graph) as sess:
                 if(tatascore(sequences[i], tss)[0] >= -8.16):
                     score = score + 0.02
                 else:
-                    score = score - 0.2
+                    score = score - 0.3
                 if(inrscore(sequences[i][tss-2:tss+6]) >= -3.75):
                     score = score + 0.02
                 elif(tctscore(sequences[i][tss-2:tss+6]) >= 12.84):
@@ -332,11 +332,12 @@ for i in range(len(sequences)):
 
     inds = np.argsort(all_scores_tata[i])
     scores = all_scores_tata[i][inds]
-    pick(sequences, scores, inds, all_chosen, dt, "+")
+    pick(sequences, scores, inds, all_chosen, 0.7, "+")
 
     inds = np.argsort(all_scores_ntata[i])
     scores = all_scores_ntata[i][inds]
     pick(sequences, scores, inds, all_chosen, dt, "-")
 
-
-
+    inds = np.argsort(all_scores_tata[i])
+    scores = all_scores_tata[i][inds]
+    pick(sequences, scores, inds, all_chosen, dt, "+")

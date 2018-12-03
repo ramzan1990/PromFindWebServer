@@ -14,8 +14,8 @@
         move_uploaded_file($_FILES['file']['tmp_name'], $new_file);
     }
     clearstatcache();
-    if(filesize($new_file) > 5000000 || filesize($new_file) < 20){
-        echo "File size is too big! Maximum size is 5 MB";
+    if(filesize($new_file) > 100000 || filesize($new_file) < 20){
+        echo "File size is too big! Maximum size is 100 KB";
         unlink($new_file);
     }else{
         putenv("PATH=/usr/local/cuda/bin:/usr/local/cuda-8.0/bin:/usr/local/cuda-9.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:");
