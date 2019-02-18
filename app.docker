@@ -3,6 +3,7 @@ FROM nvidia/cuda:9.0-base-ubuntu16.04
 LABEL maintainer="Craig Citro <craigcitro@google.com>"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+        at \
         build-essential \
         cuda-command-line-tools-9-0 \
         cuda-cublas-dev-9-0 \
@@ -120,5 +121,6 @@ RUN chmod 777 /var/www/html/PromID/PromID/files
 EXPOSE 80
 
 # start Apache2 on image start
-CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
+#CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
+CMD ["sh", "-c", "/usr/sbin/atd && /usr/sbin/apache2ctl -DFOREGROUND"]
 
