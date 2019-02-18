@@ -48,12 +48,12 @@ code{background:#F8F8FF; color: black; padding:6px}
 
 
                     </div>
-<!-- 
-<p>Click <a href="https://www.ncbi.nlm.nih.gov/pubmed/29069344" target="_blank">here</a> to find the original paper.<br>
+
+<p>Click <a href="https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty1068/5270663" target="_blank">here</a> to find the original paper.<br>
     Click <a href="" onclick="copier()">here</a>  to copy the LaTeX reference.
 </p>
 <br>
--->
+
 
 
 
@@ -70,7 +70,16 @@ code{background:#F8F8FF; color: black; padding:6px}
            <br />
 
 <textarea id="lref" style="position: absolute;top: -9999px;left: -9999px;">
-bibtex item 
+@article{10.1093/bioinformatics/bty1068,
+    author = {Umarov, Ramzan and Kuwahara, Hiroyuki and Li, Yu and Gao, Xin and Solovyev, Victor},
+    title = "{Promoter analysis and prediction in the human genome using sequence-based deep learning models}",
+    year = {2019},
+    month = {01},
+    abstract = "{Computational identification of promoters is notoriously difficult as human genes often have unique promoter sequences that provide regulation of transcription and interaction with transcription initiation complex. While there are many attempts to develop computational promoter identification methods, we have no reliable tool to analyze long genomic sequences.In this work, we further develop our deep learning approach that was relatively successful to discriminate short promoter and non-promoter sequences. Instead of focusing on the classification accuracy, in this work we predict the exact positions of the transcription start site inside the genomic sequences testing every possible location. We studied human promoters to find effective regions for discrimination and built corresponding deep learning models. These models use adaptively constructed negative set, which iteratively improves the model’s discriminative ability. Our method significantly outperforms the previously developed promoter prediction programs by considerably reducing the number of false-positive predictions. We have achieved error-per-1000-bp rate of 0.02 and have 0.31 errors per correct prediction, which is significantly better than the results of other human promoter predictors.The developed method is available as a web server at http://www.cbrc.kaust.edu.sa/PromID/.}",
+    doi = {10.1093/bioinformatics/bty1068},
+    url = {https://dx.doi.org/10.1093/bioinformatics/bty1068},
+    eprint = {http://oup.prod.sis.lan/bioinformatics/advance-article-pdf/doi/10.1093/bioinformatics/bty1068/27621189/bty1068.pdf},
+}
 </textarea>
   
         </div>
@@ -101,20 +110,42 @@ bibtex item
             function validateForm(form) {
                 $("#form1").hide();
                 $("#rm1").show();
-                $.ajax({ 
-    url: 'result.php',
-    data: new FormData(form),
-    cache: false, 
-    contentType: false,
-    processData: false,
-    method: 'POST'
-}).done(function(htmlData) {
-                $('#rm1').html(htmlData);  
-                $("#xClose").show();                              
-            });
-
+                    $.ajax({
+        url: 'result.php',
+        data: new FormData(form),
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: 'POST'
+    }).done(function(jobid) {
+        if(jobid.endsWith(".res")){
+            window.interval_id = window.setInterval(function(){
+            check_progress(jobid)}, 10000);
+        }else{
+            alert("Could not run with the input provided!");
+            $("#rm1").hide();
+            $("#xClose").hide();
+            $("#form1").show();
+        }
+        
+    });
                 return false;
             }
+function check_progress(jobid) {
+    $.ajax({
+        url: 'progress.php',
+        data: {'jobid': jobid},
+        contentType: false,
+        method: 'GET'
+    }).done(function(htmlData) {
+        if (htmlData != "RUNNING") {
+            $('#rm1').html(htmlData);
+            $("#xClose").show();
+            window.clearInterval(window.interval_id);
+        }
+    });
+}
+
             function copier(){
                 document.getElementById('lref').select();
                 document.execCommand('copy');
