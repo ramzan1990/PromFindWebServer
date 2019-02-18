@@ -24,8 +24,7 @@
         $md = $_POST["md"];
         $resfile = $new_file . ".res";
         #$resfile = str_replace("PromID/files/","",$resfile);
-        $params = "$new_file $resfile $dt $md";
-        $data = shell_exec ("printf 'bash PromID/main.sh " . $params . " 2>&1\n' | at now");
+        $data = shell_exec ("printf 'bash PromID/main.sh " . $new_file . " " . $resfile .  " " . $dt  . " " . $md . " 2>&1\n' | at now");
         echo $resfile;
         die();
     }
