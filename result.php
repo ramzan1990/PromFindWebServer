@@ -21,11 +21,23 @@
         putenv("PATH=/usr/local/cuda/bin:/usr/local/cuda-8.0/bin:/usr/local/cuda-9.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:");
         putenv("LD_LIBRARY_PATH=/usr/local/cuda/lib64");
         $dt = $_POST["dt"];
+        $dt = preg_replace('/\s+/', '', $dt);
+        if(!empty($dt)){
+            $dt = " " . $dt;
+        } else{
+            $dt = " " . "0.4";
+        }
         $md = $_POST["md"];
+        $md = preg_replace('/\s+/', '', $md);        
+        if(!empty($md)){
+            $md = " " . $md;
+        }else{
+            $md = " " . "5000";
+        }
         $resfile = $new_file . ".res";
         #$resfile = str_replace("PromID/files/","",$resfile);
-        $data = shell_exec ("bash PromID/main.sh " . $new_file . " " . $resfile .  " " . $dt  . " " . $md . " > /dev/null 2>/dev/null &");
-        echo $resfile;
+        $data = shell_exec ("bash PromID/main.sh " . $new_file . " " . $resfile . $dt . $md . " > /dev/null 2>/dev/null &");
+        echo $resfile . "bash PromID/main.sh " . $new_file . " " . $resfile . $dt . $md . " > /dev/null 2>/dev/null &";
         die();
     }
     #echo $data;
