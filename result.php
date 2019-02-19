@@ -25,7 +25,7 @@
         $resfile = $new_file . ".res";
         #$resfile = str_replace("PromID/files/","",$resfile);
         $data = shell_exec ("printf 'bash PromID/main.sh " . $new_file . " " . $resfile .  " " . $dt  . " " . $md . " 2>&1\n' | at now");
-        echo $resfile;
+        echo $resfile . "printf 'bash PromID/main.sh " . $new_file . " " . $resfile .  " " . $dt  . " " . $md . " 2>&1\n' | at now";
         die();
     }
     #echo $data;
